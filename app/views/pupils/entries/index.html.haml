@@ -1,0 +1,14 @@
+%h1 弟子の問題一覧
+
+%table
+  %thead
+    %tr
+      %th 名前
+      %th 問題
+  %tbody
+    - @pupil_questions.each do |question|
+      %tr
+        %td= question.user.email
+        %td= question.content
+
+= link_to "ホーム", root_path

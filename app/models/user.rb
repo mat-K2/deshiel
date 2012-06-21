@@ -19,4 +19,14 @@ class User < ActiveRecord::Base
     self.masters.include?(view_user)
   end
 
+  def pupil_questions
+    target_questions = []
+    self.pupils.each do |pupil|
+      pupil.entries.questions.each do |question|
+        target_questions << question
+      end
+    end
+    target_questions
+  end
+
 end
