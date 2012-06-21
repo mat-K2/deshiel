@@ -31,6 +31,10 @@ group :development, :test do
   gem 'ruby-debug19', :require => 'ruby-debug'
 end
 
+group :development do
+  gem 'heroku_san'
+end
+
 group :test do
   # Pretty printed test output
   gem 'turn', '0.8.2', :require => false
