@@ -10,7 +10,7 @@
       = f.submit '弟子入る'
 
 = "#{current_user.email}でログイン中"
-= link_to '自身の問題一覧', questions_path
+= link_to '自身の問題一覧', entries_path
 = link_to 'ログアウト', destroy_user_session_path, :method => :delete
 
 %p
