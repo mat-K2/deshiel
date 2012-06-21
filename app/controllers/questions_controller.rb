@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    @questions = current_user.questions
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
-    @question = Question.find(params[:id])
+    @question = current_user.questions.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +24,7 @@ class QuestionsController < ApplicationController
   # GET /questions/new
   # GET /questions/new.json
   def new
-    @question = Question.new
+    @question = current_user.questions.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +34,13 @@ class QuestionsController < ApplicationController
 
   # GET /questions/1/edit
   def edit
-    @question = Question.find(params[:id])
+    @question = current_user.questions.find(params[:id])
   end
 
   # POST /questions
   # POST /questions.json
   def create
-    @question = Question.new(params[:question])
+    @question = current_user.questions.build(params[:question])
 
     respond_to do |format|
       if @question.save
@@ -56,7 +56,7 @@ class QuestionsController < ApplicationController
   # PUT /questions/1
   # PUT /questions/1.json
   def update
-    @question = Question.find(params[:id])
+    @question = current_user.questions.find(params[:id])
 
     respond_to do |format|
       if @question.update_attributes(params[:question])
@@ -72,7 +72,7 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1
   # DELETE /questions/1.json
   def destroy
-    @question = Question.find(params[:id])
+    @question = current_user.questions.find(params[:id])
     @question.destroy
 
     respond_to do |format|
