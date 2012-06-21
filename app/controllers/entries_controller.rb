@@ -1,6 +1,8 @@
 class EntriesController < ApplicationController
   def index
-    @entries = current_user.entries
+    @questions = current_user.entries.questions
+    @entry = current_user.entries.build
+    @entry.entry_relationships.build
   end
 
   def new

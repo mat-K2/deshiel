@@ -1,19 +1,39 @@
-%h1 Listing entries
+%h1 自身の問題一覧
 
 %table
   %tr
-    %th Content
+    %th 問題
     %th
     %th
-    %th
+    %th コメント
 
-  - @entries.each do |entry|
+  - @questions.each do |question|
     %tr
-      %td= entry.content
-      %td= link_to 'Edit', edit_entry_path(entry)
-      %td= link_to 'Destroy', entry, :confirm => 'Are you sure?', :method => :delete
+      %td= question.content
+      %td= link_to 'Edit', edit_entry_path(question)
+      %td= link_to 'Destroy', question, :confirm => 'Are you sure?', :method => :delete
+      %td
+        - if question.comments.empty?
+          = form_for @entry do |f|
+            = f.text_field :content
+            = f.fields_for :entry_relationships do |f2|
+              = f2.hidden_field :parent_id, :value => question.id
+              = f2.hidden_field :root_id, :value => question.id
+            = f.submit "コメントする"
+        - else
+          - question.comments.each_with_index do |comment, i|
+            %ul
+              %li
+                = comment.user.email if comment.user != current_user
+                = comment.content
+            - if i + 1 == question.comments.count
+              = form_for @entry do |f|
+                = f.text_field :content
+                = f.fields_for :entry_relationships do |f2|
+                  = f2.hidden_field :parent_id, :value => comment.id
+                  = f2.hidden_field :root_id, :value => question.id
+                = f.submit "コメントする"
 
 %br
-
 = link_to 'New Entry', new_entry_path
 = link_to 'ホーム', root_path

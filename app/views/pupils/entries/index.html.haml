@@ -5,10 +5,32 @@
     %tr
       %th 名前
       %th 問題
+      %th コメント
   %tbody
     - @pupil_questions.each do |question|
       %tr
         %td= question.user.email
         %td= question.content
+        %td
+          - if question.comments.empty?
+            = form_for ["pupils", @entry] do |f|
+              = f.text_field :content
+              = f.fields_for :entry_relationships do |f2|
+                = f2.hidden_field :parent_id, :value => question.id
+                = f2.hidden_field :root_id, :value => question.id
+              = f.submit "コメントする"
+          - else
+            - question.comments.each_with_index do |comment, i|
+              %ul
+                %li
+                  = comment.user.email if comment.user != current_user
+                  = comment.content
+              - if i + 1 == question.comments.count
+                = form_for ["pupils", @entry] do |f|
+                  = f.text_field :content
+                  = f.fields_for :entry_relationships do |f2|
+                    = f2.hidden_field :parent_id, :value => comment.id
+                    = f2.hidden_field :root_id, :value => question.id
+                  = f.submit "コメントする"
 
 = link_to "ホーム", root_path
