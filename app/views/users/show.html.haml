@@ -1,6 +1,14 @@
 %h1
   = @user.email
 
+- if @user != current_user
+  - if current_user.my_master?(@user)
+    = link_to '弟子から外れる', relationship_path(:view_user_id => @user.id), :method => :delete
+  - else
+    = form_for @relationship, :url => relationship_path do |f|
+      = f.hidden_field :view_user_id, :value => @user.id
+      = f.submit '弟子入る'
+
 = "#{current_user.email}でログイン中"
 = link_to '自身の問題一覧', questions_path
 = link_to 'ログアウト', destroy_user_session_path, :method => :delete

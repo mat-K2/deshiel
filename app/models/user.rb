@@ -8,4 +8,15 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
   has_many :questions
+
+  has_many :relationships, :dependent => :destroy
+  has_many :masters , :through => :relationships
+
+  has_many :pupilships, :class_name => 'Relationship', :foreign_key => :master_id, :dependent => :destroy
+  has_many :pupils, :through => :pupilships, :source => :user
+
+  def my_master?(view_user)
+    self.masters.include?(view_user)
+  end
+
 end
