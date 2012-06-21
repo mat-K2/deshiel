@@ -6,11 +6,14 @@ Deshiel::Application.routes.draw do
 
   namespace :pupils do
     resources :entries
+    resources :thanks
   end
 
   resources :users
 
   resource :relationship, :only => [:create, :destroy]
+
+  resources :thanks
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

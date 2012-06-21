@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   has_many :pupilships, :class_name => 'Relationship', :foreign_key => :master_id, :dependent => :destroy
   has_many :pupils, :through => :pupilships, :source => :user
 
+  has_many :thanks, :dependent => :destroy
+  has_many :thanked_entries, :through => :thanks, :source => :entry
+
   def my_master?(view_user)
     self.masters.include?(view_user)
   end
