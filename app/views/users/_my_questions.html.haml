@@ -39,7 +39,7 @@
                   = f.submit "コメントする"
                 = form_for @thank do |f_t|
                   = f_t.hidden_field :entry_id, :value => question.id
-                  = f_t.hidden_field :master_id, :value => question.user.masters.first.id
+                  = f_t.hidden_field :master_id, :value => question.user.masters.first.try(:id)
                   = f_t.hidden_field :content_type, :value => params[:type]
                   = f_t.submit "ありがとう"
 
