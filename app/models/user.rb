@@ -42,8 +42,10 @@ class User < ActiveRecord::Base
 
   def open_questions
     thank_entry_ids = self.thanks.map(&:entry_id)
-    if thank_entry_ids
+    if thank_entry_ids.present?
       self.entries.questions.where("entries.id NOT IN (?)", thank_entry_ids)
+    else
+      self.entries.questions
     end
   end
 
