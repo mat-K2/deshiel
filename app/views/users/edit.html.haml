@@ -1,0 +1,23 @@
+%h1 ユーザ情報の編集
+
+= form_for @user do |f|
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :email
+    = f.text_field :email
+  .field
+    = f.label :job
+    = f.select :job, User::JOB_LIST
+  .field
+    = f.label :master_genre
+    = f.select :master_genre, User::MASTER_GENRE_LIST
+  .field
+    = f.label :web_site
+    = f.text_field :web_site
+  .field
+    = f.label :self_introduction
+    = f.text_area :self_introduction
+  .actions
+    = f.submit "変更する"
