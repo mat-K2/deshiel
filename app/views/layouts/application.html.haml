@@ -1,0 +1,37 @@
+!!!
+%html
+
+  %head
+    %title Deshiel
+    %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tag
+    = yield(:head)
+
+  %body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          .brand
+            %a{:href => root_path}
+              Deshiel
+          - if user_signed_in?
+            %ul.nav.pull-right
+              %li.dropdown
+                %a{:href => "#", :class => "dropdown-toggle", "data-toggle" => "dropdown"}
+                  = current_user.email
+                  %b.caret
+                %ul.dropdown-menu
+                  %li
+                    = link_to 'ユーザ情報の編集', edit_user_path(current_user)
+                  %li.divider
+                  %li
+                    = link_to 'ログアウト', destroy_user_session_path, :method => :delete
+
+          - else
+            %ul.nav.pull-right
+              %li
+                = link_to 'ログイン', new_user_session_path
+    .container
+      = yield

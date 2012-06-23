@@ -1,12 +1,6 @@
-%h1
-  = @user.name
-
-= "#{current_user.name}でログイン中"
 = link_to '自身の問題一覧', user_path(current_user, :type => "my_questions")
 = link_to '弟子の問題一覧（未解決）', user_path(current_user, :type => "pupil_questions")
 = link_to '弟子の問題一覧（解決済み）', user_path(current_user, :type => "answer_questions")
-= link_to 'ユーザ情報の編集', edit_user_path(current_user)
-= link_to 'ログアウト', destroy_user_session_path, :method => :delete
 
 - if @user != current_user
   - if current_user.my_master?(@user)
