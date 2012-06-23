@@ -9,4 +9,6 @@ class Entry < ActiveRecord::Base
 
   scope :questions, includes(:entry_relationships).where("entry_relationships.parent_id IS ?", nil)
 
+  attr_accessor :content_type
+
 end

@@ -1,11 +1,4 @@
 class EntriesController < ApplicationController
-  def index
-    @questions = current_user.entries.questions
-    @entry = current_user.entries.build
-    @entry.entry_relationships.build
-    @thank = current_user.thanks.build
-  end
-
   def new
     @entry = current_user.entries.build
   end
@@ -17,7 +10,7 @@ class EntriesController < ApplicationController
   def create
     @entry = current_user.entries.build(params[:entry])
     if @entry.save
-      redirect_to entries_path
+      redirect_to user_path(current_user, {:type => params[:entry][:content_type]})
     else
       render action: "new"
     end
@@ -27,7 +20,7 @@ class EntriesController < ApplicationController
     @entry = current_user.entries.find(params[:id])
 
     if @entry.update_attributes(params[:entry])
-      redirect_to entries_path
+      redirect_to user_path(current_user, {:type => params[:entry][:content_type]})
     else
       render action: "edit"
     end
@@ -37,7 +30,7 @@ class EntriesController < ApplicationController
     @entry = current_user.entries.find(params[:id])
 
     @entry.destroy
-    redirect_to entries_path
+    redirect_to user_path(current_user, {:type => params[:content_type]})
   end
 
 end

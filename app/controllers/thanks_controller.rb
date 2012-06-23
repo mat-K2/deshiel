@@ -2,9 +2,9 @@ class ThanksController < ApplicationController
   def create
     @thank = current_user.thanks.build(params[:thank])
     if @thank.save
-      redirect_to entries_path
+      redirect_to user_path(current_user, {:type => params[:thank][:content_type]})
     else
-      render action: 'entries#index'
+      render action: 'user#show'
     end
   end
 

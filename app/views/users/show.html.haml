@@ -10,12 +10,12 @@
       = f.submit '弟子入る'
 
 = "#{current_user.email}でログイン中"
-= link_to '自身の問題一覧', entries_path
-= link_to '弟子の問題一覧', pupils_entries_path
+= link_to '自身の問題一覧', user_path(current_user, :type => "my_questions")
+= link_to '弟子の問題一覧', user_path(current_user, :type => "pupil_questions")
 = link_to 'ユーザ情報の編集', edit_user_path(current_user)
 = link_to 'ログアウト', destroy_user_session_path, :method => :delete
 
-%p
-  他のメンバー
-  - User.all.each do |user|
-    = link_to user.email, user_path(user.id)
+- if params[:type] == "my_questions"
+  = render :partial => "my_questions"
+- elsif params[:type] == "pupil_questions"
+  = render :partial => "pupil_questions"

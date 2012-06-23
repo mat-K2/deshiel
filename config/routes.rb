@@ -4,11 +4,6 @@ Deshiel::Application.routes.draw do
 
   resources :entries
 
-  namespace :pupils do
-    resources :entries
-    resources :thanks
-  end
-
   resources :users
 
   resource :relationship, :only => [:create, :destroy]
