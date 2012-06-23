@@ -1,5 +1,12 @@
 %h1
-  = @user.email
+  = @user.name
+
+= "#{current_user.name}でログイン中"
+= link_to '自身の問題一覧', user_path(current_user, :type => "my_questions")
+= link_to '弟子の問題一覧（未解決）', user_path(current_user, :type => "pupil_questions")
+= link_to '弟子の問題一覧（解決済み）', user_path(current_user, :type => "answer_questions")
+= link_to 'ユーザ情報の編集', edit_user_path(current_user)
+= link_to 'ログアウト', destroy_user_session_path, :method => :delete
 
 - if @user != current_user
   - if current_user.my_master?(@user)
@@ -8,14 +15,11 @@
     = form_for @relationship, :url => relationship_path do |f|
       = f.hidden_field :view_user_id, :value => @user.id
       = f.submit '弟子入る'
-
-= "#{current_user.email}でログイン中"
-= link_to '自身の問題一覧', user_path(current_user, :type => "my_questions")
-= link_to '弟子の問題一覧', user_path(current_user, :type => "pupil_questions")
-= link_to 'ユーザ情報の編集', edit_user_path(current_user)
-= link_to 'ログアウト', destroy_user_session_path, :method => :delete
-
-- if params[:type] == "my_questions"
-  = render :partial => "my_questions"
-- elsif params[:type] == "pupil_questions"
-  = render :partial => "pupil_questions"
+  = render :partial => "answer_questions"
+- else
+  - if params[:type] == "my_questions"
+    = render :partial => "my_questions"
+  - elsif params[:type] == "pupil_questions"
+    = render :partial => "pupil_questions"
+  - else
+    = render :partial => "answer_questions"

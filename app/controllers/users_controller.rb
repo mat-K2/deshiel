@@ -2,10 +2,16 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id] || current_user.id)
     @relationship = current_user.relationships.build
-    @questions = if params[:type] == "my_questions"
-                   current_user.entries.questions
-                 elsif params[:type] == "pupil_questions"
-                   current_user.pupil_questions
+    @questions = if @user != current_user
+                   @user.answer_entries
+                 else
+                   if params[:type] == "my_questions"
+                     current_user.entries.questions
+                   elsif params[:type] == "pupil_questions"
+                     current_user.pupil_questions
+                   else
+                     current_user.answer_entries
+                   end
                  end
     @entry = current_user.entries.build
     @entry.entry_relationships.build
