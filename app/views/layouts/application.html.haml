@@ -17,6 +17,13 @@
             %a{:href => root_path}
               Deshiel
           - if user_signed_in?
+            %ul.nav
+              %li
+                = link_to '自身の問題一覧', user_path(current_user, :type => "my_questions")
+              %li
+                = link_to '弟子の問題一覧（未解決）', user_path(current_user, :type => "pupil_questions")
+              %li
+                = link_to '弟子の問題一覧（解決済み）', user_path(current_user, :type => "answer_questions")
             %ul.nav.pull-right
               %li.dropdown
                 %a{:href => "#", :class => "dropdown-toggle", "data-toggle" => "dropdown"}

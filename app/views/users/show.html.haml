@@ -1,6 +1,19 @@
-= link_to '自身の問題一覧', user_path(current_user, :type => "my_questions")
-= link_to '弟子の問題一覧（未解決）', user_path(current_user, :type => "pupil_questions")
-= link_to '弟子の問題一覧（解決済み）', user_path(current_user, :type => "answer_questions")
+%table.table.table-bordered
+  %tr
+    %th 名前
+    %td= @user.name
+  %tr
+    %th 職業
+    %td= @user.job
+  %tr
+    %th 師匠ジャンル
+    %td= @user.master_genre
+  %tr
+    %th 自己紹介
+    %td= @user.self_introduction
+  %tr
+    %th webサイト
+    %td= @user.web_site
 
 - if @user != current_user
   - if current_user.my_master?(@user)
