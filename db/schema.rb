@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120623082821) do
+ActiveRecord::Schema.define(:version => 20120626114111) do
 
   create_table "entries", :force => true do |t|
     t.string   "content"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20120623082821) do
     t.string   "master_genre"
     t.string   "web_site"
     t.string   "self_introduction"
+    t.integer  "home_default"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

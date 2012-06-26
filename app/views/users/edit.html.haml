@@ -19,5 +19,8 @@
   .field
     = f.label :self_introduction
     = f.text_area :self_introduction
+  .field
+    = f.label :home_default
+    = f.select :home_default, User::HOME_DEFAULT
   .actions
     = f.submit "変更する"

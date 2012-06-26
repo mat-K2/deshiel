@@ -9,8 +9,14 @@ class UsersController < ApplicationController
                      current_user.entries.questions
                    elsif params[:type] == "pupil_questions"
                      current_user.pupil_questions
-                   else
+                   elsif params[:type] == "answer_questions"
                      current_user.answer_entries
+                   else
+                     if current_user.home_default == 1
+                       current_user.entries.questions
+                     else
+                       current_user.pupil_questions
+                     end
                    end
                  end
     @entry = current_user.entries.build

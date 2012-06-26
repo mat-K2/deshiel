@@ -15,5 +15,10 @@
     = render :partial => "my_questions"
   - elsif params[:type] == "pupil_questions"
     = render :partial => "pupil_questions"
-  - else
+  - elsif params[:type] == "answer_questions"
     = render :partial => "answer_questions"
+  - else
+    - if current_user.home_default == 1
+      = render :partial => "my_questions"
+    - else
+      = render :partial => "pupil_questions"
