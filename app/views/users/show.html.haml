@@ -22,16 +22,12 @@
     = form_for @relationship, :url => relationship_path do |f|
       = f.hidden_field :view_user_id, :value => @user.id
       = f.submit '弟子入る'
-  = render :partial => "answer_questions"
+  = render :partial => "questions", :locals => { :type => "answer_questions", :questions => @questions }
 - else
-  - if params[:type] == "my_questions"
-    = render :partial => "my_questions"
-  - elsif params[:type] == "pupil_questions"
-    = render :partial => "pupil_questions"
-  - elsif params[:type] == "answer_questions"
-    = render :partial => "answer_questions"
+  - if params[:type]
+    = render :partial => "questions", :locals => { :type => params[:type], :entry => @entry, :questions => @questions }
   - else
     - if current_user.home_default == 1
-      = render :partial => "my_questions"
+      = render :partial => "questions", :locals => { :type => "my_questions", :entry => @entry, :questions => @questions }
     - else
-      = render :partial => "pupil_questions"
+      = render :partial => "questions", :locals => { :type => "pupil_questions", :entry => @entry, :questions => @questions }

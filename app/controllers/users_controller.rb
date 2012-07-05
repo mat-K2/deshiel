@@ -21,7 +21,6 @@ class UsersController < ApplicationController
                  end
     @entry = current_user.entries.build
     @entry.entry_relationships.build
-    @thank = current_user.thanks.build
   end
 
   def edit
