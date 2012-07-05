@@ -10,6 +10,8 @@ Deshiel::Application.routes.draw do
 
   resources :thanks
 
+  resources :search
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

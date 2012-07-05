@@ -1,0 +1,40 @@
+= form_tag search_index_path, :method => :get do
+  = radio_button_tag :search_type, :entry
+  解決済みの問題を検索する
+  = text_field_tag :entry_item
+  = radio_button_tag :search_type, :master
+  師匠を検索する
+  = select_tag :master_genre, options_for_select(User::MASTER_GENRE_LIST)
+  = submit_tag
+
+- if @entries
+  %table.table.table-bordered.table-striped
+    %thead
+      %tr
+        %th 問題
+        %th コメント
+    %tbody
+      - @entries.each do |question|
+        %tr
+          %td= question.content
+          %td
+            - question.comments.each do |comment|
+              %ul
+                %li
+                  = comment.user.name if comment.user != current_user
+                  = comment.content
+- elsif @masters
+  %table.table.table-bordered.table-striped
+    %thead
+      %tr
+        %th 名前
+        %th 解決した問題
+    %tbody
+      - @masters.each do |master|
+        %tr
+          %td
+            = link_to master.name, user_path(master.id)
+          %td
+            %ul
+              - master.answer_entries.each do |entry|
+                %li= entry.content
