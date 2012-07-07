@@ -9,3 +9,11 @@
 body {
   padding-top: 60px;
 }
+
+.users_table table {
+  width: 40%;
+}
+
+.float_r {
+  float: right;
+}
