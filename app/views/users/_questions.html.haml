@@ -14,16 +14,12 @@
 %table.table.table-bordered.table-striped
   %thead
     %tr
-      - if type == "pupil_questions"
-        %th 名前
       %th 問題
       %th コメント
   - if questions
     %tbody
       - questions.each do |question|
         %tr
-          - if type == "pupil_questions"
-            %td= question.user.name
           %td
             = question.content
             - if type == "my_questions"

@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
 
   HOME_DEFAULT = [["自身の問題一覧", 1], ["弟子の問題一覧", 2]]
 
+  QUESTION_TYPE = { :m => "my_questions", :p => "pupil_questions", :a => "answer_questions" }
+
   def my_master?(view_user)
     self.master == view_user
   end

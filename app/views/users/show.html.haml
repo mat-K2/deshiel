@@ -1,4 +1,4 @@
-- if @user != current_user || params[:type] == "answer_questions"
+- if @user != current_user || @relation_user_type.nil?
   %table.table.table-bordered
     %tr
       %th 名前
@@ -17,95 +17,28 @@
       %td= @user.web_site
 - else
   .users_table
-    - if params[:type] == "my_questions"
-      - if current_user.master
-        %table.table.table-bordered.float_r
-          %tr
-            %th 名前
-            %td= @user.master.name
-          %tr
-            %th 職業
-            %td= @user.master.job
-          %tr
-            %th 師匠ジャンル
-            %td= @user.master.master_genre
-          %tr
-            %th 自己紹介
-            %td= @user.master.self_introduction
-          %tr
-            %th webサイト
-            %td= @user.master.web_site
-      - else
-        %table.table.table-bordered.float_r
+    - if @relation_user
+      %table.table.table-bordered.float_r
+        %tr
+          %th 名前
           %td
-            師匠はいません
-    - elsif params[:type] == "pupil_questions"
-      - if current_user.pupil
-        %table.table.table-bordered.float_r
-          %tr
-            %th 名前
-            %td= @user.pupil.name
-          %tr
-            %th 職業
-            %td= @user.pupil.job
-          %tr
-            %th 師匠ジャンル
-            %td= @user.pupil.master_genre
-          %tr
-            %th 自己紹介
-            %td= @user.pupil.self_introduction
-          %tr
-            %th webサイト
-            %td= @user.pupil.web_site
-      - else
-        %table.table.table-bordered.float_r
-          %td
-            弟子はいません
+            = link_to @relation_user.name, user_path(@relation_user.id)
+        %tr
+          %th 職業
+          %td= @relation_user.job
+        %tr
+          %th 師匠ジャンル
+          %td= @relation_user.master_genre
+        %tr
+          %th 自己紹介
+          %td= @relation_user.self_introduction
+        %tr
+          %th webサイト
+          %td= @relation_user.web_site
     - else
-      - if current_user.home_default == 1
-        - if current_user.master
-          %table.table.table-bordered.float_r
-            %tr
-              %th 名前
-              %td= @user.master.name
-            %tr
-              %th 職業
-              %td= @user.master.job
-            %tr
-              %th 師匠ジャンル
-              %td= @user.master.master_genre
-            %tr
-              %th 自己紹介
-              %td= @user.master.self_introduction
-            %tr
-              %th webサイト
-              %td= @user.master.web_site
-        - else
-          %table.table.table-bordered.float_r
-            %td
-              師匠はいません
-      - else
-        - if current_user.pupil
-          %table.table.table-bordered.float_r
-            %tr
-              %th 名前
-              %td= @user.pupil.name
-            %tr
-              %th 職業
-              %td= @user.pupil.job
-            %tr
-              %th 師匠ジャンル
-              %td= @user.pupil.master_genre
-            %tr
-              %th 自己紹介
-              %td= @user.pupil.self_introduction
-            %tr
-              %th webサイト
-              %td= @user.pupil.web_site
-        - else
-          %table.table.table-bordered.float_r
-            %td
-              弟子はいません
+      %table.table.table-bordered.float_r
+        %td
+          = "#{@relation_user_type}はいません"
     %table.table.table-bordered
       %tr
         %th 名前
@@ -135,10 +68,4 @@
         = f.submit '弟子入る'
   = render :partial => "questions", :locals => { :type => "answer_questions", :questions => @questions }
 - else
-  - if params[:type]
-    = render :partial => "questions", :locals => { :type => params[:type], :entry => @entry, :questions => @questions }
-  - else
-    - if current_user.home_default == 1
-      = render :partial => "questions", :locals => { :type => "my_questions", :entry => @entry, :questions => @questions }
-    - else
-      = render :partial => "questions", :locals => { :type => "pupil_questions", :entry => @entry, :questions => @questions }
+  = render :partial => "questions", :locals => { :type => @type, :entry => @entry, :questions => @questions }
