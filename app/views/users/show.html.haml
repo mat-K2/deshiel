@@ -18,8 +18,8 @@
 - if @user != current_user
   - if current_user.my_master?(@user)
     = link_to '弟子から外れる', relationship_path(:view_user_id => @user.id), :method => :delete
-  - else
-    = form_for @relationship, :url => relationship_path do |f|
+  - elsif current_user.master.nil?
+    = form_for current_user.build_relationship, :url => relationship_path do |f|
       = f.hidden_field :view_user_id, :value => @user.id
       = f.submit '弟子入る'
   = render :partial => "questions", :locals => { :type => "answer_questions", :questions => @questions }

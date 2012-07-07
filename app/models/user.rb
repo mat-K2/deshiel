@@ -10,11 +10,11 @@ class User < ActiveRecord::Base
 
   has_many :entries
 
-  has_many :relationships, :dependent => :destroy
-  has_many :masters , :through => :relationships
+  has_one :relationship, :dependent => :destroy
+  has_one :master , :through => :relationship
 
-  has_many :pupilships, :class_name => 'Relationship', :foreign_key => :master_id, :dependent => :destroy
-  has_many :pupils, :through => :pupilships, :source => :user
+  has_one :pupilship, :class_name => 'Relationship', :foreign_key => :master_id, :dependent => :destroy
+  has_one :pupil, :through => :pupilship, :source => :user
 
   has_many :thanks, :dependent => :destroy
   has_many :thanked_entries, :through => :thanks, :source => :entry
@@ -29,17 +29,17 @@ class User < ActiveRecord::Base
   HOME_DEFAULT = [["自身の問題一覧", 1], ["弟子の問題一覧", 2]]
 
   def my_master?(view_user)
-    self.masters.include?(view_user)
+    self.master == view_user
   end
 
   def pupil_questions
-    target_questions = []
-    self.pupils.each do |pupil|
-      pupil.open_questions.each do |question|
+    if self.pupil
+      target_questions = []
+      self.pupil.open_questions.each do |question|
         target_questions << question
       end
+      target_questions
     end
-    target_questions
   end
 
   def open_questions
