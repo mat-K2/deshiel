@@ -39,6 +39,8 @@
       %table.table.table-bordered.float_r
         %td
           = "#{@relation_user_type}はいません"
+          - if @type == User::QUESTION_TYPE[:m]
+            = link_to "師匠を探す", search_index_path(:type => "master")
     %table.table.table-bordered
       %tr
         %th 名前

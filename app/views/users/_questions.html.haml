@@ -67,5 +67,7 @@
                           = f_t.submit "ありがとう"
 
 - if type == "my_questions"
-  %br
-  = link_to 'New Entry', new_entry_path
+  = form_tag search_index_path, :method => :get do
+    = hidden_field_tag :search_type, :entry
+    = text_field_tag :entry_item
+    = submit_tag "解決済みの問題から探す"

@@ -1,13 +1,12 @@
-= form_tag search_index_path, :method => :get do
-  = radio_button_tag :search_type, :entry
-  解決済みの問題を検索する
-  = text_field_tag :entry_item
-  = radio_button_tag :search_type, :master
-  師匠を検索する
-  = select_tag :master_genre, options_for_select(User::MASTER_GENRE_LIST)
-  = submit_tag
+- if params[:type] == "master" || params[:search_type] == "master"
+  = form_tag search_index_path, :method => :get do
+    = hidden_field_tag :search_type, :master
+    = select_tag :master_genre, options_for_select(User::MASTER_GENRE_LIST, params[:master_genre])
+    = submit_tag "このジャンルの師匠を探す"
 
 - if @entries
+  %h3
+    = "「解決済みの問題から探す」検索結果：#{params[:entry_item]}"
   %table.table.table-bordered.table-striped
     %thead
       %tr
@@ -23,7 +22,13 @@
                 %li
                   = comment.user.name if comment.user != current_user
                   = comment.content
+  = form_for @entry do |f|
+    = f.hidden_field :content, :value => params[:entry_item]
+    = f.submit '登録する'
+
 - elsif @masters
+  %h3
+    = "「師匠を探す」検索結果：#{params[:master_genre]}"
   %table.table.table-bordered.table-striped
     %thead
       %tr
