@@ -12,14 +12,14 @@ class UsersController < ApplicationController
               end
             end
     @questions = if @user != current_user
-                   @user.answer_entries
+                   @user.answer_questions
                  else
                    if @type == User::QUESTION_TYPE[:m]
                      current_user.entries.questions
                    elsif @type == User::QUESTION_TYPE[:p]
                      current_user.pupil_questions
                    else
-                     current_user.answer_entries
+                     current_user.answer_questions
                    end
                  end
     @relation_user = if @type == User::QUESTION_TYPE[:m]

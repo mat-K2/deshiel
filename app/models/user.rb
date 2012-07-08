@@ -57,4 +57,8 @@ class User < ActiveRecord::Base
     self.entries.include?(comment)
   end
 
+  def answer_questions
+    self.answer_entries.uniq
+  end
+
 end

@@ -3,7 +3,7 @@
     自身の問題一覧
   - elsif type == "pupil_questions"
     弟子の問題一覧
-  - elsif params[:type] == "answer_questions"
+  - elsif type == "answer_questions"
     解決した問題一覧
   - else
     - if current_user.home_default == 1
@@ -16,6 +16,8 @@
     %tr
       %th 問題
       %th コメント
+      - if type == "answer_questions"
+        %th 「ありがとう」の数
   - if questions
     %tbody
       - questions.each do |question|
@@ -27,14 +29,17 @@
               = link_to '編集', edit_entry_path(question)
               |
               = link_to '削除', question, :confirm => '削除します。よろしいですか？', :method => :delete
-          %td
-            - if type == "answer_questions"
+          - if type == "answer_questions"
+            %td
               - question.comments.each do |comment|
                 %ul
                   %li
                     = comment.user.name if comment.user != current_user
                     = comment.content
-            - else
+            %td
+              = question.thanks.count
+          - else
+            %td
               - if question.comments.empty?
                 = form_for entry do |f|
                   = f.text_field :content

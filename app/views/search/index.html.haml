@@ -12,6 +12,7 @@
       %tr
         %th 問題
         %th コメント
+        %th 「ありがとう」の数
     %tbody
       - @entries.each do |question|
         %tr
@@ -22,6 +23,14 @@
                 %li
                   = comment.user.name if comment.user != current_user
                   = comment.content
+            - unless current_user.thanked_entries.include?(question)
+              = form_for current_user.thanks.build do |f_t|
+                = f_t.hidden_field :entry_id, :value => question.id
+                = f_t.hidden_field :master_id, :value => question.thanks.first.try(:master_id)
+                = f_t.hidden_field :content_type, :value => User::QUESTION_TYPE[:m]
+                = f_t.submit "ありがとう"
+          %td
+            = question.thanks.count
   = form_for @entry do |f|
     = f.hidden_field :content, :value => params[:entry_item]
     = f.submit '登録する'
