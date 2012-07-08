@@ -53,4 +53,8 @@ class User < ActiveRecord::Base
     end
   end
 
+  def my_post?(comment)
+    self.entries.include?(comment)
+  end
+
 end
