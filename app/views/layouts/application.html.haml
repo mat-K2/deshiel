@@ -16,6 +16,8 @@
           .brand
             %a{:href => root_path}
               Deshiel
+              - if request.smart_phone?
+                mobile
           - if user_signed_in?
             %ul.nav
               %li
