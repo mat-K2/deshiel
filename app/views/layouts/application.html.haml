@@ -4,8 +4,8 @@
   %head
     %title Deshiel
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
-    = stylesheet_link_tag "application"
-    = javascript_include_tag "application"
+    = stylesheet_link_tag "pc/application"
+    = javascript_include_tag "pc/application"
     = csrf_meta_tag
     = yield(:head)
 
@@ -16,8 +16,6 @@
           .brand
             %a{:href => root_path}
               Deshiel
-              - if request.smart_phone?
-                mobile
           - if user_signed_in?
             %ul.nav
               %li

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Deshiel - mobile</title>
+    <meta name="viewport" content="width=device-width">
+    <%= stylesheet_link_tag "pc/application"%>
+    <%= stylesheet_link_tag "mobile/application_smart_phone"%>
+    <%= javascript_include_tag "pc/application"%>
+    <%= javascript_include_tag "mobile/application_smart_phone"%>
+    <%= csrf_meta_tag %>
+  </head>
+  <body>
+    <div data-role="page">
+      <div data-role="header">
+        <h1>Deshiel</h1>
+      </div>
+      <div data-role="content">
+        <%= yield %>
+      </div>
+      <div data-role="footer">
+        <div data-role="navbar">
+          <ul>
+            <% if user_signed_in?%>
+              <li><%= link_to "トップページ", root_path %></li>
+              <li><%= link_to '自身の問題一覧', user_path(current_user, :type => "my_questions")%></li>
+              <li><%= link_to '弟子の問題一覧（未解決）', user_path(current_user, :type => "pupil_questions")%></li>
+              <li><%= link_to '弟子の問題一覧（解決済み）', user_path(current_user, :type => "answer_questions")%></li>
+              <li><%= link_to 'ユーザ情報の編集', edit_user_path(current_user) %></li>
+              <li><%= link_to 'ログアウト', destroy_user_session_path, :method => :delete %></li>
+            <% end %>
+          </ul>
+        </div>
+        &copy; Deshiel <%= Time.now.year%>
+      </div>
+    </div>
+  </body>
+</html>
