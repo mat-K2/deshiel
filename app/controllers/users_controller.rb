@@ -2,13 +2,17 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id] || current_user.id)
-    @type = if params[:type]
-              params[:type]
+    @type = if @user != current_user
+              User::QUESTION_TYPE[:a]
             else
-              if current_user.home_default == 1
-                User::QUESTION_TYPE[:m]
+              if params[:type]
+                params[:type]
               else
-                User::QUESTION_TYPE[:p]
+                if current_user.home_default == 1
+                  User::QUESTION_TYPE[:m]
+                else
+                  User::QUESTION_TYPE[:p]
+                end
               end
             end
     @questions = if @user != current_user

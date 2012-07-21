@@ -1,11 +1,12 @@
 - if question.comments.empty?
-  = form_for entry do |f|
-    = f.text_field :content
-    = f.fields_for :entry_relationships do |f2|
-      = f2.hidden_field :parent_id, :value => question.id
-      = f2.hidden_field :root_id, :value => question.id
-    = f.hidden_field :content_type, :value => type
-    = f.submit "コメントする"
+  - if type != User::QUESTION_TYPE[:a]
+    = form_for entry do |f|
+      = f.text_field :content
+      = f.fields_for :entry_relationships do |f2|
+        = f2.hidden_field :parent_id, :value => question.id
+        = f2.hidden_field :root_id, :value => question.id
+      = f.hidden_field :content_type, :value => type
+      = f.submit "コメントする"
 - else
   - question.comments.each_with_index do |comment, i|
     %ul
@@ -18,13 +19,14 @@
           = link_to "削除", entry_path(comment, :content_type => type), :method => :delete
     - if i + 1 == question.comments.count
       - unless current_user.thanked_entries.include?(question)
-        = form_for entry do |f|
-          = f.text_field :content
-          = f.fields_for :entry_relationships do |f2|
-            = f2.hidden_field :parent_id, :value => comment.id
-            = f2.hidden_field :root_id, :value => question.id
-          = f.hidden_field :content_type, :value => type
-          = f.submit "コメントする"
+        - if type != User::QUESTION_TYPE[:a]
+          = form_for entry do |f|
+            = f.text_field :content
+            = f.fields_for :entry_relationships do |f2|
+              = f2.hidden_field :parent_id, :value => comment.id
+              = f2.hidden_field :root_id, :value => question.id
+            = f.hidden_field :content_type, :value => type
+            = f.submit "コメントする"
         - if type == "my_questions"
           = form_for current_user.thanks.build do |f_t|
             = f_t.hidden_field :entry_id, :value => question.id
