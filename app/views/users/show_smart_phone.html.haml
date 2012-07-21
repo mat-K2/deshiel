@@ -1,9 +1,7 @@
 - if @user != current_user || @relation_user_type.nil?
   = render :partial => "user_table", :locals => { :user => @user }
 - else
-  .users_table
-    = render :partial => "master_table", :locals => { :type => @type, :relation_user => @relation_user, :relation_user_type => @relation_user_type }
-    = render :partial => "user_table", :locals => { :user => @user }
+  = render :partial => "master_table", :locals => { :type => @type, :relation_user => @relation_user, :relation_user_type => @relation_user_type }
 
 - if @user != current_user
   = render :partial => "deshiel", :locals => { :user => @user }

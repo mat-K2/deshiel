@@ -1,0 +1,24 @@
+- if relation_user
+  %table.table.table-bordered.float_r
+    %tr
+      %th 名前
+      %td
+        = link_to relation_user.name, user_path(relation_user.id)
+    %tr
+      %th 職業
+      %td= relation_user.job
+    %tr
+      %th 師匠ジャンル
+      %td= relation_user.master_genre
+    %tr
+      %th 自己紹介
+      %td= relation_user.self_introduction
+    %tr
+      %th webサイト
+      %td= relation_user.web_site
+- else
+  %table.table.table-bordered.float_r
+    %td
+      = "#{relation_user_type}はいません"
+      - if type == User::QUESTION_TYPE[:m]
+        = link_to "師匠を探す", search_index_path(:type => "master")
