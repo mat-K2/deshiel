@@ -17,3 +17,7 @@ body {
 .float_r {
   float: right;
 }
+
+.question_table td {
+  width: 50%;
+}

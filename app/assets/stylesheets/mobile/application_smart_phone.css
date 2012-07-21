@@ -13,3 +13,7 @@ input.ui-input-text {
 input[type="submit"], input[type="reset"], input[type="button"], input[type="radio"], input[type="checkbox"] {
   width: 100%;
 }
+
+.question_table td {
+  width: auto;
+}

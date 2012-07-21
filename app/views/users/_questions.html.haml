@@ -11,16 +11,10 @@
     - else
       弟子の問題一覧
 
-%table.table.table-bordered.table-striped
-  %thead
-    %tr
-      %th 問題
-      %th コメント
-      - if type == "answer_questions"
-        %th 「ありがとう」の数
+%table.table.table-bordered.table-striped.question_table
   - if questions
     %tbody
-      - questions.each do |question|
+      - questions.each_with_index do |question, i|
         %tr
           %td
             = question.content
@@ -29,53 +23,28 @@
               = link_to '編集', edit_entry_path(question)
               |
               = link_to '削除', question, :confirm => '削除します。よろしいですか？', :method => :delete
-          - if type == "answer_questions"
-            %td
-              - question.comments.each do |comment|
-                %ul
-                  %li
-                    = comment.user.name if comment.user != current_user
-                    = comment.content
-            %td
-              = question.thanks.count
-          - else
-            %td
-              - if question.comments.empty?
-                = form_for entry do |f|
-                  = f.text_field :content
-                  = f.fields_for :entry_relationships do |f2|
-                    = f2.hidden_field :parent_id, :value => question.id
-                    = f2.hidden_field :root_id, :value => question.id
-                  = f.hidden_field :content_type, :value => @type
-                  = f.submit "コメントする"
-              - else
-                - question.comments.each_with_index do |comment, i|
-                  %ul
-                    %li
-                      = comment.user.name if comment.user != current_user
-                      = comment.content
-                      - if current_user.my_post?(comment)
-                        = link_to "編集", edit_entry_path(comment)
-                        - unless comment.have_child?
-                          = link_to "削除", entry_path(comment, :content_type => @type), :method => :delete
-                  - if i + 1 == question.comments.count
-                    - unless current_user.thanked_entries.include?(question)
-                      = form_for entry do |f|
-                        = f.text_field :content
-                        = f.fields_for :entry_relationships do |f2|
-                          = f2.hidden_field :parent_id, :value => comment.id
-                          = f2.hidden_field :root_id, :value => question.id
-                        = f.hidden_field :content_type, :value => @type
-                        = f.submit "コメントする"
-                      - if type == "my_questions"
-                        = form_for current_user.thanks.build do |f_t|
-                          = f_t.hidden_field :entry_id, :value => question.id
-                          = f_t.hidden_field :master_id, :value => question.user.master.try(:id)
-                          = f_t.hidden_field :content_type, :value => @type
-                          = f_t.submit "ありがとう"
+            %button{ :class => "comment_button", :line_num => i }
+              コメント
+            - if type == "answer_questions"
+              = "#{question.thanks.count} ありがとう"
+          %td
+            %div{:class => "comment #{i}", :style => "display: none;" }
+              = render :partial => "comment", :locals => { :question => question, :entry => entry, :type => type }
 
 - if type == "my_questions"
   = form_tag search_index_path, :method => :get do
     = hidden_field_tag :search_type, :entry
     = text_field_tag :entry_item
     = submit_tag "解決済みの問題から探す"
+
+:javascript
+  $(document).ready(function() {
+    $('.comment_button').click(function() {
+      if ($('div.comment.' + $(this).attr('line_num')).css('display') == 'none') {
+        $('div.comment').css('display', 'none')
+        $('div.comment.' + $(this).attr('line_num')).css('display', '')
+      } else {
+        $('div.comment.' + $(this).attr('line_num')).css('display', 'none')
+      }
+    });
+  });
