@@ -23,7 +23,7 @@
                 %li
                   = comment.user.name if comment.user != current_user
                   = comment.content
-            - unless current_user.thanked_entries.include?(question)
+            - unless current_user.thanked_objectives.include?(question)
               = form_for current_user.thanks.build do |f_t|
                 = f_t.hidden_field :entry_id, :value => question.id
                 = f_t.hidden_field :master_id, :value => question.thanks.first.try(:master_id)

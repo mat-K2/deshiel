@@ -14,6 +14,6 @@ input[type="submit"], input[type="reset"], input[type="button"], input[type="rad
   width: 100%;
 }
 
-.question_table td {
+.objective_table td {
   width: auto;
 }

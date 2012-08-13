@@ -19,11 +19,13 @@
           - if user_signed_in?
             %ul.nav
               %li
-                = link_to '自身の問題一覧', user_path(current_user, :type => "my_questions")
+                = link_to '自身の目標一覧', user_path(current_user, :type => User::QUESTION_TYPE[:m])
               %li
-                = link_to '弟子の問題一覧（未解決）', user_path(current_user, :type => "pupil_questions")
+                = link_to '自身の目標一覧（達成済み）', user_path(current_user, :type => User::QUESTION_TYPE[:m_a])
               %li
-                = link_to '弟子の問題一覧（解決済み）', user_path(current_user, :type => "answer_questions")
+                = link_to '弟子の目標一覧', user_path(current_user, :type => User::QUESTION_TYPE[:p])
+              %li
+                = link_to 'ありがとう', user_path(current_user, :type => User::QUESTION_TYPE[:p_a])
             %ul.nav.pull-right
               %li.dropdown
                 %a{:href => "#", :class => "dropdown-toggle", "data-toggle" => "dropdown"}

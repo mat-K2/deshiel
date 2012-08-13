@@ -17,48 +17,53 @@ class User < ActiveRecord::Base
   has_one :pupil, :through => :pupilship, :source => :user
 
   has_many :thanks, :dependent => :destroy
-  has_many :thanked_entries, :through => :thanks, :source => :entry
+  has_many :thanked_objectives, :through => :thanks, :source => :entry
 
   has_many :get_thanks, :class_name => 'Thank', :foreign_key => :master_id, :dependent => :destroy
-  has_many :answer_entries, :through => :get_thanks, :source => :entry
+  has_many :be_thanked_objectives, :through => :get_thanks, :source => :entry
 
   JOB_LIST = ["営業、事務、企画系", "クリエイティブ系", "販売系", "美容、ファッション系", "専門職系（コンサルタント、金融、不動産）", "技術系（電気、電子、機械）", "技術系（建築、土木）", "技術系（ソフトウェア、ネットワーク）", "技術系（素材、食品、メディカル）", "その他"]
 
   MASTER_GENRE_LIST = ["料理、グルメ、レシピ", "エンターテインメント", "インターネット、PC、家電", "健康", "美容、ファッション", "ビジネス", "恋愛", "人間関係", "子育て", "マナー", "教養、学問", "スポーツ、アウトドア", "ギャンブル", "おしゃべり、雑談", "地域、旅行", "その他"]
 
-  HOME_DEFAULT = [["自身の問題一覧", 1], ["弟子の問題一覧", 2]]
+  HOME_DEFAULT = [["自身の目標一覧", 1], ["弟子の目標一覧", 2]]
 
-  QUESTION_TYPE = { :m => "my_questions", :p => "pupil_questions", :a => "answer_questions" }
+  QUESTION_TYPE = { :m => "my_objectives", :m_a => "my_achieved_objectives", :p => "pupil_objectives", :p_a => "pupil_achieved_objectives" }
 
   def my_master?(view_user)
     self.master == view_user
   end
 
-  def pupil_questions
+  def pupil_objectives
     if self.pupil
-      target_questions = []
-      self.pupil.open_questions.each do |question|
-        target_questions << question
+      target_objectives = []
+      self.pupil.unachieved_objectives.each do |objective|
+        target_objectives << objective
       end
-      target_questions
+      return target_objectives
     end
   end
 
-  def open_questions
+  def unachieved_objectives
     thank_entry_ids = self.thanks.map(&:entry_id)
     if thank_entry_ids.present?
-      self.entries.questions.where("entries.id NOT IN (?)", thank_entry_ids)
+      self.entries.objectives.where("entries.id NOT IN (?)", thank_entry_ids)
     else
-      self.entries.questions
+      self.entries.objectives
     end
+  end
+
+  def achieved_objectives
+    thank_entry_ids = self.thanks.map(&:entry_id)
+    self.entries.objectives.where("entries.id IN (?)", thank_entry_ids)
   end
 
   def my_post?(comment)
     self.entries.include?(comment)
   end
 
-  def answer_questions
-    self.answer_entries.uniq
+  def get_thanked_objectives
+    self.be_thanked_objectives.uniq
   end
 
 end

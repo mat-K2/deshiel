@@ -22,9 +22,10 @@
           <ul>
             <% if user_signed_in?%>
               <li><%= link_to "トップページ", root_path %></li>
-              <li><%= link_to '自身の問題一覧', user_path(current_user, :type => "my_questions")%></li>
-              <li><%= link_to '弟子の問題一覧（未解決）', user_path(current_user, :type => "pupil_questions")%></li>
-              <li><%= link_to '弟子の問題一覧（解決済み）', user_path(current_user, :type => "answer_questions")%></li>
+              <li><%= link_to '自身の目標一覧', user_path(current_user, :type => User::QUESTION_TYPE[:m])%></li>
+              <li><%= link_to '自身の目標一覧（達成済み）', user_path(current_user, :type => User::QUESTION_TYPE[:m_a])%></li>
+              <li><%= link_to '弟子の目標一覧（未達成）', user_path(current_user, :type => User::QUESTION_TYPE[:p])%></li>
+              <li><%= link_to 'ありがとう', user_path(current_user, :type => User::QUESTION_TYPE[:p_a])%></li>
               <li><%= link_to 'ユーザ情報の編集', edit_user_path(current_user) %></li>
               <li><%= link_to 'ログアウト', destroy_user_session_path, :method => :delete %></li>
             <% end %>

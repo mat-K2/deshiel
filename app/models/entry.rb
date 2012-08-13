@@ -12,11 +12,11 @@ class Entry < ActiveRecord::Base
 
   has_many :thanks
 
-  scope :questions, includes(:entry_relationships).where("entry_relationships.parent_id IS ?", nil)
+  scope :objectives, includes(:entry_relationships).where("entry_relationships.parent_id IS ?", nil)
 
-  scope :thanked_questions, lambda {
-    thanked_question_ids = Thank.all.map(&:entry_id)
-    where("id IN (?)", thanked_question_ids)
+  scope :thanked_objectives, lambda {
+    thanked_objective_ids = Thank.all.map(&:entry_id)
+    where("id IN (?)", thanked_objective_ids)
   }
 
   attr_accessor :content_type

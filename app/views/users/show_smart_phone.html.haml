@@ -5,6 +5,6 @@
 
 - if @user != current_user
   = render :partial => "deshiel", :locals => { :user => @user }
-  = render :partial => "questions", :locals => { :type => "answer_questions", :entry => @entry, :questions => @questions }
+  = render :partial => "objectives", :locals => { :type => User::QUESTION_TYPE[:p_a], :entry => @entry, :objectives => @objectives }
 - else
-  = render :partial => "questions", :locals => { :type => @type, :entry => @entry, :questions => @questions }
+  = render :partial => "objectives", :locals => { :type => @type, :entry => @entry, :objectives => @objectives }

@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id] || current_user.id)
     @type = if @user != current_user
-              User::QUESTION_TYPE[:a]
+              User::QUESTION_TYPE[:p_a]
             else
               if params[:type]
                 params[:type]
@@ -15,15 +15,17 @@ class UsersController < ApplicationController
                 end
               end
             end
-    @questions = if @user != current_user
-                   @user.answer_questions
+    @objectives = if @user != current_user
+                   @user.get_thanked_objectives
                  else
                    if @type == User::QUESTION_TYPE[:m]
-                     current_user.entries.questions
+                     current_user.unachieved_objectives
+                   elsif @type == User::QUESTION_TYPE[:m_a]
+                     current_user.achieved_objectives
                    elsif @type == User::QUESTION_TYPE[:p]
-                     current_user.pupil_questions
+                     current_user.pupil_objectives
                    else
-                     current_user.answer_questions
+                     current_user.get_thanked_objectives
                    end
                  end
     @relation_user = if @type == User::QUESTION_TYPE[:m]

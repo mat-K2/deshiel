@@ -1,0 +1,52 @@
+%h1
+  - if type == User::QUESTION_TYPE[:m]
+    自身の目標一覧
+  - elsif type == User::QUESTION_TYPE[:m_a]
+    自身の目標一覧（達成済み）
+  - elsif type == User::QUESTION_TYPE[:p]
+    弟子の目標一覧
+  - elsif type == User::QUESTION_TYPE[:p_a]
+    ありがとう
+  - else
+    - if current_user.home_default == 1
+      自身の目標一覧
+    - else
+      弟子の目標一覧
+
+%table.table.table-bordered.table-striped.objective_table
+  - if objectives
+    %tbody
+      - objectives.each_with_index do |objective, i|
+        %tr
+          %td
+            = objective.content
+            - if type == User::QUESTION_TYPE[:m]
+              |
+              = link_to '編集', edit_entry_path(objective)
+              |
+              = link_to '削除', objective, :confirm => '削除します。よろしいですか？', :method => :delete
+            %button{ :class => "comment_button", :line_num => i }
+              コメントを見る
+            - if type == User::QUESTION_TYPE[:p_a]
+              = "#{objective.thanks.count} ありがとう"
+          %td
+            %div{:class => "comment #{i}", :style => "display: none;" }
+              = render :partial => "comment", :locals => { :objective => objective, :entry => entry, :type => type }
+
+- if type == User::QUESTION_TYPE[:m]
+  = form_tag search_index_path, :method => :get do
+    = hidden_field_tag :search_type, :entry
+    = text_field_tag :entry_item
+    = submit_tag "達成済みの目標から探す"
+
+:javascript
+  $(document).ready(function() {
+    $('.comment_button').click(function() {
+      if ($('div.comment.' + $(this).attr('line_num')).css('display') == 'none') {
+        $('div.comment').css('display', 'none')
+        $('div.comment.' + $(this).attr('line_num')).css('display', '')
+      } else {
+        $('div.comment.' + $(this).attr('line_num')).css('display', 'none')
+      }
+    });
+  });
