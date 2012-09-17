@@ -36,8 +36,8 @@
 - if type == User::QUESTION_TYPE[:m]
   = form_tag search_index_path, :method => :get do
     = hidden_field_tag :search_type, :entry
-    = text_field_tag :entry_item
-    = submit_tag "達成済みの目標から探す"
+    = text_area_tag :entry_item, nil,  :class => 'help', :title => "あなたの目標は何ですか？"
+    = submit_tag "達成済みの目標から探す", :disabled => true, :id => "search_objective"
 
 :javascript
   $(document).ready(function() {
@@ -49,4 +49,16 @@
         $('div.comment.' + $(this).attr('line_num')).css('display', 'none')
       }
     });
+
+    $('form input.help, form textarea.help').formtips({
+      tippedClass: 'tipped'
+    });
+
+    $('.help.tipped').keyup(function() {
+      if ($(this).val().length >= 1) {
+        $('#search_objective').removeAttr('disabled')
+      }else{
+        $('#search_objective').attr('disabled', 'disabled')
+      }
+    })
   });

@@ -21,3 +21,7 @@ body {
 .objective_table td {
   width: 50%;
 }
+
+.tipped {
+  color: #BBB !important;
+}

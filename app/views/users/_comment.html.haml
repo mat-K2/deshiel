@@ -1,7 +1,7 @@
 - if objective.comments.empty?
   - if type != User::QUESTION_TYPE[:p_a]
     = form_for entry do |f|
-      = f.text_field :content
+      = f.text_area :content
       = f.fields_for :entry_relationships do |f2|
         = f2.hidden_field :parent_id, :value => objective.id
         = f2.hidden_field :root_id, :value => objective.id
@@ -12,7 +12,7 @@
     %ul
       %li
         = comment.user.name if comment.user != current_user
-        = comment.content
+        = simple_format(comment.content)
         - if current_user.my_post?(comment)
           = link_to "編集", edit_entry_path(comment)
         - unless comment.have_child?
@@ -21,7 +21,7 @@
       - unless current_user.thanked_objectives.include?(objective)
         - if type != User::QUESTION_TYPE[:p_a]
           = form_for entry do |f|
-            = f.text_field :content
+            = f.text_area :content
             = f.fields_for :entry_relationships do |f2|
               = f2.hidden_field :parent_id, :value => comment.id
               = f2.hidden_field :root_id, :value => objective.id

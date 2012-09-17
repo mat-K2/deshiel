@@ -12,6 +12,8 @@ class Entry < ActiveRecord::Base
 
   has_many :thanks
 
+  validates_presence_of :content
+
   scope :objectives, includes(:entry_relationships).where("entry_relationships.parent_id IS ?", nil)
 
   scope :thanked_objectives, lambda {
