@@ -25,3 +25,7 @@ body {
 .tipped {
   color: #BBB !important;
 }
+
+.entry_form input, textarea {
+  width: auto;
+}
