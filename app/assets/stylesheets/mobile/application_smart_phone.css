@@ -17,3 +17,15 @@ input[type="submit"], input[type="reset"], input[type="button"], input[type="rad
 .objective_table td {
   width: auto;
 }
+
+.ui-page {
+  position: static !important;
+}
+
+.ui-mobile-viewport {
+  margin: 0 auto;
+}
+
+body {
+  padding: 0;
+}
