@@ -66,4 +66,51 @@ class User < ActiveRecord::Base
     self.be_thanked_objectives.uniq
   end
 
+  def view_type_of_show_user(target_user, params_type)
+    if self != target_user
+      User::QUESTION_TYPE[:p_a]
+    else
+      if params_type
+        params_type
+      else
+        if self.home_default == 1
+          User::QUESTION_TYPE[:m]
+        else
+          User::QUESTION_TYPE[:p]
+        end
+      end
+    end
+  end
+
+  def get_objectives_of_show_user(target_user, view_type)
+    if self != target_user
+      target_user.get_thanked_objectives
+    else
+      if view_type == User::QUESTION_TYPE[:m]
+        self.unachieved_objectives
+      else
+        self.pupil_objectives
+      end
+    end
+  end
+
+  def get_relation_user_of_show_user(target_user, view_type)
+    if view_type == User::QUESTION_TYPE[:m]
+      target_user.master
+    elsif view_type == User::QUESTION_TYPE[:p]
+      target_user.pupil
+    else
+      nil
+    end
+  end
+
+  def get_relation_user_type(view_type)
+    if view_type == User::QUESTION_TYPE[:m]
+      "師匠"
+    elsif view_type == User::QUESTION_TYPE[:p]
+      "弟子"
+    else
+      nil
+    end
+  end
 end

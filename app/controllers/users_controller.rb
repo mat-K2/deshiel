@@ -2,42 +2,11 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id] || current_user.id)
-    @type = if @user != current_user
-              User::QUESTION_TYPE[:p_a]
-            else
-              if params[:type]
-                params[:type]
-              else
-                if current_user.home_default == 1
-                  User::QUESTION_TYPE[:m]
-                else
-                  User::QUESTION_TYPE[:p]
-                end
-              end
-            end
-    @objectives = if @user != current_user
-                   @user.get_thanked_objectives
-                 else
-                   if @type == User::QUESTION_TYPE[:m]
-                     current_user.unachieved_objectives
-                   else
-                     current_user.pupil_objectives
-                   end
-                 end
-    @relation_user = if @type == User::QUESTION_TYPE[:m]
-                       @user.master
-                     elsif @type == User::QUESTION_TYPE[:p]
-                       @user.pupil
-                     else
-                       nil
-                     end
-    @relation_user_type = if @type == User::QUESTION_TYPE[:m]
-                            "師匠"
-                          elsif @type == User::QUESTION_TYPE[:p]
-                            "弟子"
-                          else
-                            nil
-                          end
+    @type = current_user.view_type_of_show_user(@user, params[:type])
+    @objectives = current_user.get_objectives_of_show_user(@user, @type)
+    @relation_user = current_user.get_relation_user_of_show_user(@user, @type)
+    @relation_user_type = current_user.get_relation_user_type(@type)
+
     @entry = current_user.entries.build
     @entry.entry_relationships.build
   end
