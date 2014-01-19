@@ -4,13 +4,13 @@ Deshiel::Application.routes.draw do
 
   resources :entries
 
-  resources :users
+  resources :users, :only => %w(show edit update)
 
-  resource :relationship, :only => [:create, :destroy]
+  resource :relationship, :only => %w(create destroy)
 
-  resources :thanks
+  resources :thanks, :only => %w(create)
 
-  resources :search
+  resources :search, :only => %w(index)
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
