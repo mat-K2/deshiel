@@ -1,5 +1,5 @@
 - if params[:type] == "master" || params[:search_type] == "master"
-  = form_tag search_index_path, :method => :get do
+  = form_tag search_users_path, :method => :get do
     = hidden_field_tag :search_type, :master
     = select_tag :master_genre, options_for_select(User::MASTER_GENRE_LIST, params[:master_genre])
     = submit_tag "このジャンルの師匠を探す"
