@@ -32,10 +32,6 @@
               = render :partial => "comment", :locals => { :objective => objective, :entry => entry, :type => type }
 
 - if type == User::QUESTION_TYPE[:m]
-  -# = form_tag search_users_path, :method => :get do
-  -#   = hidden_field_tag :search_type, :entry
-  -#   = text_area_tag :entry_item, nil,  :class => 'help', :title => "あなたの目標は何ですか？"
-  -#   = submit_tag "達成済みの目標から探す", :disabled => true, :id => "search_objective"
   .entry_form
     = form_for @entry do |f|
       = f.text_area :content, :class => 'help', :title => "あなたの目標は何ですか？", :cols => 60, :rows => 5
