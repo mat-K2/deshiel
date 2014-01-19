@@ -1,0 +1,58 @@
+= render :partial => "user_table", :locals => { :user => @user }
+
+%h1
+  活動履歴の確認
+
+%h3
+  自身の目標一覧（達成済み）
+  %table.table.table-bordered.table-striped.objective_table
+    - if @achieved_objectives
+      %tbody
+        - @achieved_objectives.each_with_index do |objective, i|
+          %tr
+            %td
+              = objective.content
+              %button{ :class => "comment_button", :line_num => i }
+                コメントを見る
+            %td
+              %div{:class => "comment #{i}", :style => "display: none;" }
+                = render :partial => "comment", :locals => { :objective => objective, :entry => nil, :type => User::QUESTION_TYPE[:m_a] }
+
+%h3
+  ありがとう
+  %table.table.table-bordered.table-striped.objective_table
+    - if @get_thanked_objectives
+      %tbody
+        - @get_thanked_objectives.each_with_index do |objective, i|
+          %tr
+            %td
+              = objective.content
+              %button{ :class => "comment_button", :line_num => i }
+                コメントを見る
+            %td
+              %div{:class => "comment #{i}", :style => "display: none;" }
+                = render :partial => "comment", :locals => { :objective => objective, :entry => nil, :type => User::QUESTION_TYPE[:p_a] }
+
+:javascript
+  $(document).ready(function() {
+    $('.comment_button').click(function() {
+      if ($('div.comment.' + $(this).attr('line_num')).css('display') == 'none') {
+        $('div.comment').css('display', 'none')
+        $('div.comment.' + $(this).attr('line_num')).css('display', '')
+      } else {
+        $('div.comment.' + $(this).attr('line_num')).css('display', 'none')
+      }
+    });
+
+    $('form input.help, form textarea.help').formtips({
+      tippedClass: 'tipped'
+    });
+
+    $('.help.tipped').keyup(function() {
+      if ($(this).val().length >= 1) {
+        $('#regist_objective').removeAttr('disabled')
+      }else{
+        $('#regist_objective').attr('disabled', 'disabled')
+      }
+    })
+  });

@@ -21,12 +21,10 @@
               %li
                 = link_to '自身の目標一覧', user_path(current_user, :type => User::QUESTION_TYPE[:m])
               %li
-                = link_to '自身の目標一覧（達成済み）', user_path(current_user, :type => User::QUESTION_TYPE[:m_a])
-              %li
                 = link_to '弟子の目標一覧', user_path(current_user, :type => User::QUESTION_TYPE[:p])
-              %li
-                = link_to 'ありがとう', user_path(current_user, :type => User::QUESTION_TYPE[:p_a])
             %ul.nav.pull-right
+              %li
+                = link_to '活動履歴の確認', history_user_path(current_user)
               %li.dropdown
                 %a{:href => "#", :class => "dropdown-toggle", "data-toggle" => "dropdown"}
                   = current_user.email

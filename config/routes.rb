@@ -8,6 +8,9 @@ Deshiel::Application.routes.draw do
     collection do
       get :search
     end
+    member do
+      get :history
+    end
   end
 
   resource :relationship, :only => %w(create destroy)

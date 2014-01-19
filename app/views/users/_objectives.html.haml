@@ -1,12 +1,8 @@
 %h1
   - if type == User::QUESTION_TYPE[:m]
     自身の目標一覧
-  - elsif type == User::QUESTION_TYPE[:m_a]
-    自身の目標一覧（達成済み）
   - elsif type == User::QUESTION_TYPE[:p]
     弟子の目標一覧
-  - elsif type == User::QUESTION_TYPE[:p_a]
-    ありがとう
   - else
     - if current_user.home_default == 1
       自身の目標一覧

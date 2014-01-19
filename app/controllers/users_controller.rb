@@ -20,12 +20,8 @@ class UsersController < ApplicationController
                  else
                    if @type == User::QUESTION_TYPE[:m]
                      current_user.unachieved_objectives
-                   elsif @type == User::QUESTION_TYPE[:m_a]
-                     current_user.achieved_objectives
-                   elsif @type == User::QUESTION_TYPE[:p]
-                     current_user.pupil_objectives
                    else
-                     current_user.get_thanked_objectives
+                     current_user.pupil_objectives
                    end
                  end
     @relation_user = if @type == User::QUESTION_TYPE[:m]
@@ -66,5 +62,11 @@ class UsersController < ApplicationController
     elsif params[:search_type] == "master"
       @masters = User.where("id != ? AND master_genre = ?", current_user.id, params[:master_genre])
     end
+  end
+
+  def history
+    @user = current_user
+    @achieved_objectives = current_user.achieved_objectives
+    @get_thanked_objectives = current_user.get_thanked_objectives
   end
 end
