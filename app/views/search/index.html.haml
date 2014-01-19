@@ -50,5 +50,5 @@
             = link_to master.name, user_path(master.id)
           %td
             %ul
-              - master.answer_entries.each do |entry|
+              - master.get_thanked_objectives.each do |entry|
                 %li= entry.content
