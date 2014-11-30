@@ -1,4 +1,4 @@
-class EntriesController < ApplicationController
+class Pupil::EntriesController < ApplicationController
   before_action :set_entry, only: [:show, :edit, :update, :destroy]
 
   # GET /entries

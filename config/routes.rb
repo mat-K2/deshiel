@@ -1,13 +1,18 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :entries
+
   resources :users, only: %w(show)
   resources :master_relations, only: %w(create)
+
+  namespace :pupil do
+    get 'home'
+    resources :entries
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  root 'home#index'
+  root 'pupil#home'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
