@@ -8,21 +8,21 @@ class User < ActiveRecord::Base
   has_many :masters, through: :master_relations
 
   has_many :entries
-  has_many :master_entries, class_name: 'Entry', foreign_key: 'master_user_id'
+  has_many :master_entries, class_name: 'Entry', foreign_key: :master_id
 
-  has_one :pupil_relation, class_name: 'MasterRelation', foreign_key: 'master_user_id'
+  has_one :pupil_relation, class_name: 'MasterRelation', foreign_key: :master_id
   has_one :pupil, source: :user, through: :pupil_relation
 
-  def become_pupil(master_user_id)
-    relation = self.master_relations.build(master_user_id: master_user_id)
+  def become_pupil(master_id)
+    relation = self.master_relations.build(master_id: master_id)
     relation.save
   end
 
-  def master?(master_user)
-    masters.include?(master_user)
+  def master?(master)
+    masters.include?(master)
   end
 
   def entries_by_master(master)
-    entries.where(master_user_id: master.id)
+    entries.where(master_id: master.id)
   end
 end
