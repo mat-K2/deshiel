@@ -1,0 +1,6 @@
+%h1 Home
+
+- current_user.masters.each do |master|
+  = link_to "師匠: #{master.id}", user_path(master)
+  = render partial: 'entries/index', locals: { entries: Entry.all }
+  %br
