@@ -69,6 +69,6 @@ class Pupil::EntriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def entry_params
-      params.require(:entry).permit(:description, :master_id)
+      params.require(:entry).permit(:description, :master_id, :pupil_id)
     end
 end
