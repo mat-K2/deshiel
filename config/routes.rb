@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :entries
+  resources :users, only: %w(show)
+  resources :master_relations, only: %w(create)
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,0 +1,11 @@
+%h1 Users#show
+
+user_id
+= @user.id
+
+- if current_user.master?(@user)
+  弟子入り中です
+- else
+  = form_for @master_relation do |f|
+    = f.hidden_field :master_user_id, value: @user.id
+    = f.submit '弟子入る'
