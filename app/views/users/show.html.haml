@@ -1,7 +1,4 @@
-%h1 Users#show
-
-user_id
-= @user.id
+%h1= @user.id
 
 - if current_user.master?(@user)
   弟子入り中です
