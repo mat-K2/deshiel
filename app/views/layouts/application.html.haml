@@ -16,5 +16,9 @@
           .navbar-brand
             %a{:href => root_path}
               Deshiel
+        - if current_user
+          .navbar-collapse.collapse
+            %ul.nav.navbar-nav.navbar-right
+              %li= link_to 'ログアウト', destroy_user_session_path, method: :delete
     .container
       = yield

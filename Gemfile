@@ -40,3 +40,4 @@ end
 
 gem 'rspec-rails'
 gem 'haml-rails'
+gem 'devise'
