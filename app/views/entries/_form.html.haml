@@ -9,5 +9,6 @@
   .field
     = f.label :description
     = f.text_field :description
+    = f.hidden_field :master_user_id, value: params[:master_user_id].to_i
   .actions
     = f.submit 'Save'

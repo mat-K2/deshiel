@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
   has_many :master_relations
   has_many :masters, through: :master_relations
 
+  has_many :entries
+  has_many :master_entries, class_name: 'Entry', foreign_key: 'master_user_id'
+
   has_one :pupil_relation, class_name: 'MasterRelation', foreign_key: 'master_user_id'
   has_one :pupil, source: :user, through: :pupil_relation
 
@@ -17,5 +20,9 @@ class User < ActiveRecord::Base
 
   def master?(master_user)
     masters.include?(master_user)
+  end
+
+  def entries_by_master(master)
+    entries.where(master_user_id: master.id)
   end
 end

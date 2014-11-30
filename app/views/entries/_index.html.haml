@@ -7,7 +7,7 @@
     %th
     %th
 
-  - entries.each do |entry|
+  - current_user.entries_by_master(master_user).each do |entry|
     %tr
       %td= entry.description
       %td= link_to 'Show', entry
@@ -16,4 +16,4 @@
 
 %br
 
-= link_to 'New Entry', new_entry_path
+= link_to 'New Entry', new_entry_path(params: {master_user_id: master_user.id})
