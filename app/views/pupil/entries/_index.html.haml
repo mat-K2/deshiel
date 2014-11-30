@@ -8,7 +8,7 @@
     %th
     %th
 
-  - current_user.entries_by_master(master).each do |entry|
+  - current_user.pupil_entries_by_master(master).each do |entry|
     %tr
       %td= entry.user.id
       %td= entry.description

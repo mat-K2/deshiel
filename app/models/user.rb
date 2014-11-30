@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :masters, through: :master_relations
 
   has_many :entries
+  has_many :pupil_entries, class_name: 'Entry', foreign_key: :pupil_id
   has_many :master_entries, class_name: 'Entry', foreign_key: :master_id
 
   has_one :pupil_relation, class_name: 'MasterRelation', foreign_key: :master_id
@@ -22,11 +23,11 @@ class User < ActiveRecord::Base
     masters.include?(master)
   end
 
-  def entries_by_master(master)
-    entries.where(master_id: master.id)
+  def pupil_entries_by_master(master)
+    pupil_entries.where(master_id: master.id)
   end
 
   def master_entries_by_pupil(pupil)
-    master_entries.where(user_id: pupil.id)
+    master_entries.where(pupil_id: pupil.id)
   end
 end

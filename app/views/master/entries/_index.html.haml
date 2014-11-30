@@ -2,6 +2,7 @@
 
 %table
   %tr
+    %th UserId
     %th Description
     %th
     %th
@@ -9,6 +10,7 @@
 
   - current_user.master_entries_by_pupil(pupil).each do |entry|
     %tr
+      %td= entry.user.id
       %td= entry.description
       %td= link_to 'Destroy', master_entry_path(entry), :method => :delete, :data => { :confirm => 'Are you sure?' }
 
