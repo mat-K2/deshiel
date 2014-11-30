@@ -16,6 +16,9 @@
           .navbar-brand
             %a{:href => root_path}
               Deshiel
+          %ul.nav.navbar-nav
+            %li= link_to '弟子', pupil_home_path
+            %li= link_to '師匠', master_home_path
         - if current_user
           .navbar-collapse.collapse
             %ul.nav.navbar-nav.navbar-right

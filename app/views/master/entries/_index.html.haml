@@ -1,0 +1,17 @@
+%h1 Listing entries
+
+%table
+  %tr
+    %th Description
+    %th
+    %th
+    %th
+
+  - current_user.master_entries_by_pupil(pupil).each do |entry|
+    %tr
+      %td= entry.description
+      %td= link_to 'Destroy', master_entry_path(entry), :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Entry', new_master_entry_path(params: {pupil_id: pupil.id})

@@ -25,4 +25,8 @@ class User < ActiveRecord::Base
   def entries_by_master(master)
     entries.where(master_id: master.id)
   end
+
+  def master_entries_by_pupil(pupil)
+    master_entries.where(user_id: pupil.id)
+  end
 end

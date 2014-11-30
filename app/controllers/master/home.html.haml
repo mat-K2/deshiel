@@ -1,0 +1,4 @@
+%h1 師匠
+
+= link_to "弟子: #{@pupil.id}", user_path(@pupil)
+= render partial: 'master/entries/index', locals: { pupil: @pupil }
