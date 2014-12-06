@@ -38,4 +38,8 @@ class User < ActiveRecord::Base
   def master_entries_by_pupil(pupil)
     master_entries.where(pupil_id: pupil.id)
   end
+
+  def pupil_due(master_id)
+    master_relations.find{ |relation| relation.due_at >= Time.now && relation.master_id == master_id }.due_at.strftime("%Y/%m/%d %H:%M:%S")
+  end
 end

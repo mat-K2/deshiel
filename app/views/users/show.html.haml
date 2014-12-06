@@ -3,6 +3,7 @@
 - unless current_user == @user
   - if current_user.master?(@user)
     弟子入り中です
+    = "(#{current_user.pupil_due(@user.id)}まで)"
   - else
     = form_for @master_relation do |f|
       = f.hidden_field :master_id, value: @user.id
