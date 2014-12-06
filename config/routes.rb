@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   namespace :pupil do
     get 'home'
     get 'search'
+    post 'rate'
     resources :entries
   end
 

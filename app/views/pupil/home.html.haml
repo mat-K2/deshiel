@@ -5,7 +5,15 @@
   = render partial: 'pupil/entries/index', locals: { master: master }
   %br
 
-%h3 師匠を探す
-= form_tag pupil_search_path, method: 'GET' do
-  = select_tag :master_genre, options_for_select(User::MASTER_GENRE_LIST)
-  = submit_tag '探す', class: 'btn btn-default'
+- if current_user.masters_to_rate.present?
+  - current_user.masters_to_rate.each do |master|
+    = master.id
+    = form_tag pupil_rate_path do
+      = hidden_field_tag :master_id, master.id
+      = select_tag :rating, options_for_select([5,4,3,2,1])
+      = submit_tag '評価'
+- else
+  %h3 師匠を探す
+  = form_tag pupil_search_path, method: 'GET' do
+    = select_tag :master_genre, options_for_select(User::MASTER_GENRE_LIST)
+    = submit_tag '探す', class: 'btn btn-default'
