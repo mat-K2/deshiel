@@ -6,10 +6,12 @@
   %table.table.table-borderd
     %thead
       %th 名前
+      %th 評価値
       %th 紹介文
     - @users.each do |user|
       %tbody
         %td= link_to user.name, user_path(user)
+        %td= user.total_rating
         %td= user.description
 - else
   %p 該当ユーザなし

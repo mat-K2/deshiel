@@ -11,8 +11,8 @@ class User < ActiveRecord::Base
   has_many :pupil_entries, class_name: 'Entry', foreign_key: :pupil_id
   has_many :master_entries, class_name: 'Entry', foreign_key: :master_id
 
-  has_one :pupil_relation, class_name: 'MasterRelation', foreign_key: :master_id
-  has_one :pupil, source: :user, through: :pupil_relation
+  has_many :pupil_relations, class_name: 'MasterRelation', foreign_key: :master_id
+  has_many :pupils, source: :user, through: :pupil_relations
 
   MASTER_GENRE_LIST = ["料理、グルメ、レシピ", "エンターテインメント", "インターネット、PC、家電", "健康", "美容、ファッション", "ビジネス", "恋愛", "人間関係", "子育て", "マナー", "教養、学問", "スポーツ、アウトドア", "ギャンブル", "おしゃべり、雑談", "地域、旅行", "その他"]
 
@@ -45,5 +45,9 @@ class User < ActiveRecord::Base
 
   def masters_to_rate
     masters.where("due_at < ? AND rating IS NULL", Time.now)
+  end
+
+  def total_rating
+    pupil_relations.where("rating IS NOT NULL").inject(0) { |sum, relation| sum + relation.rating }
   end
 end
