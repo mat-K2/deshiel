@@ -16,8 +16,10 @@ class User < ActiveRecord::Base
 
   MASTER_GENRE_LIST = ["料理、グルメ、レシピ", "エンターテインメント", "インターネット、PC、家電", "健康", "美容、ファッション", "ビジネス", "恋愛", "人間関係", "子育て", "マナー", "教養、学問", "スポーツ、アウトドア", "ギャンブル", "おしゃべり、雑談", "地域、旅行", "その他"]
 
+  PUPIL_AVAILABLE_PERIOD = 7.day.freeze
+
   def become_pupil(master_id)
-    relation = self.master_relations.build(master_id: master_id)
+    relation = self.master_relations.build(master_id: master_id, due_at: Time.now + PUPIL_AVAILABLE_PERIOD)
     relation.save
   end
 
