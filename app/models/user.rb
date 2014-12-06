@@ -50,4 +50,8 @@ class User < ActiveRecord::Base
   def total_rating
     pupil_relations.where("rating IS NOT NULL").inject(0) { |sum, relation| sum + relation.rating }
   end
+
+  def pupil
+    pupils.first
+  end
 end
