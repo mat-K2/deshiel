@@ -10,5 +10,14 @@
 
 %table.table.table-bordered
   %tr
-    %th ユーザID
-    %td= @user.id
+    %th 名前
+    %td= @user.name
+  %tr
+    %th 紹介文
+    %td= @user.description
+  %tr
+    %th 得意分野
+    %td= @user.master_genre
+
+- if current_user == @user
+  = link_to "編集", edit_user_path(@user)

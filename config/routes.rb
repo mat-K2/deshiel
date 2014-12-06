@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :users, only: %w(show)
+  resources :users, only: %w(show edit update)
   resources :master_relations, only: %w(create)
 
   namespace :pupil do
