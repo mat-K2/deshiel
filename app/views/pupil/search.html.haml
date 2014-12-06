@@ -1,0 +1,15 @@
+%h2
+  師匠一覧
+  = "【#{params['master_genre']}】"
+
+- if @users.present?
+  - @users.each do |user|
+    %table.table.table-borderd
+      %thead
+        %th 名前
+        %th 紹介文
+      %tbody
+        %td= link_to user.name, user_path(user)
+        %td= user.description
+- else
+  %p 該当ユーザなし
