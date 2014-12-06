@@ -1,6 +1,6 @@
 %h1 弟子
 
-- current_user.masters.each do |master|
+- current_user.current_masters.each do |master|
   = link_to "師匠: #{master.id}", user_path(master)
   = render partial: 'pupil/entries/index', locals: { master: master }
   %br

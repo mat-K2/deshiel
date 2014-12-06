@@ -22,7 +22,11 @@ class User < ActiveRecord::Base
   end
 
   def master?(master)
-    masters.include?(master)
+    current_masters.include?(master)
+  end
+
+  def current_masters
+    masters.where("due_at >= ?", Time.now)
   end
 
   def pupil_entries_by_master(master)
