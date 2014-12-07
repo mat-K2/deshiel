@@ -5,8 +5,9 @@
       %td= entry.description
       %td
         - if current_user == entry.user
-          = link_to '削除', master_entry_path(entry), :method => :delete, :data => { :confirm => '削除してもよろしいですか？' }
+          = link_to '削除', entry_path(entry, params: {role: 'master'}), :method => :delete, :data => { :confirm => '削除してもよろしいですか？' }
 
 %br
 
-= link_to '新規書き込み', new_master_entry_path(params: {pupil_id: pupil.id})
+= link_to '新規書き込み', new_entry_path(params: {master_id: current_user.id, pupil_id: pupil.id, role: 'master'}), remote: true
+#new-entry

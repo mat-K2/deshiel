@@ -3,17 +3,15 @@ Rails.application.routes.draw do
 
   resources :users, only: %w(show edit update)
   resources :master_relations, only: %w(create)
-
+  resources :entries
   namespace :pupil do
     get 'home'
     get 'search'
     post 'rate'
-    resources :entries
   end
 
   namespace :master do
     get 'home'
-    resources :entries
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
