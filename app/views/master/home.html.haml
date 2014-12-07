@@ -3,4 +3,5 @@
     = link_to "弟子: #{@pupil.name}", user_path(@pupil)
   = render partial: 'master/entries/index', locals: { pupil: @pupil }
 - else
-  現在、弟子はいません。
+  %h4
+    現在、弟子はいません。
