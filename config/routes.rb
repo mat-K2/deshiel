@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { sessions: "users/sessions", registrations: "users/registrations" }
 
   resources :users, only: %w(show edit update)
   resources :master_relations, only: %w(create)
