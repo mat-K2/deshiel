@@ -1,19 +1,14 @@
-%h1 Listing entries
-
-%table
-  %tr
-    %th UserId
-    %th Description
-    %th
-    %th
-    %th
-
+%table.table.table-striped
   - current_user.pupil_entries_by_master(master).each do |entry|
     %tr
-      %td= entry.user.id
+      %td
+        - unless current_user == entry.user
+          = entry.user.name
       %td= entry.description
-      %td= link_to 'Destroy', pupil_entry_path(entry), :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td
+        - if current_user == entry.user
+          = link_to '削除', pupil_entry_path(entry), :method => :delete, :data => { :confirm => '削除してよろしいですか？' }
 
 %br
 
-= link_to 'New Entry', new_pupil_entry_path(params: {master_id: master.id})
+= link_to '新規書き込み', new_pupil_entry_path(params: {master_id: master.id})

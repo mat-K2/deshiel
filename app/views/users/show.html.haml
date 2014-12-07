@@ -1,13 +1,14 @@
-%h1= @user.id
+%h1= @user.name
 
 - unless current_user == @user
-  - if current_user.master?(@user)
-    弟子入り中です
-    = "(#{current_user.pupil_due(@user.id)}まで)"
-  - else
-    = form_for @master_relation do |f|
-      = f.hidden_field :master_id, value: @user.id
-      = f.submit '弟子入る'
+  %p
+    - if current_user.master?(@user)
+      弟子入り中です
+      = "(#{current_user.pupil_due(@user.id)}まで)"
+    - else
+      = form_for @master_relation do |f|
+        = f.hidden_field :master_id, value: @user.id
+        = f.submit '弟子入る', class: 'btn btn-primary'
 
 %table.table.table-bordered
   %tr
