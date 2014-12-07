@@ -54,4 +54,8 @@ class User < ActiveRecord::Base
   def current_pupil
     self.pupils.where("due_at > ?", Time.now).first
   end
+
+  def has_pupil?
+    current_pupil.present?
+  end
 end

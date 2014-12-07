@@ -6,9 +6,12 @@
       弟子入り中です
       = "(#{current_user.pupil_due(@user.id)}まで)"
     - else
-      = form_for @master_relation do |f|
-        = f.hidden_field :master_id, value: @user.id
-        = f.submit '弟子入る', class: 'btn btn-primary'
+      - if @user.has_pupil?
+        既に弟子がいます
+      - else
+        = form_for @master_relation do |f|
+          = f.hidden_field :master_id, value: @user.id
+          = f.submit '弟子入る', class: 'btn btn-primary'
 
 %table.table.table-bordered
   %tr
