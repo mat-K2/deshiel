@@ -10,15 +10,17 @@
     = yield(:head)
 
   %body
-    %nav.navbar.navbar-inverse.navbar-fixed-top
+    %nav.navbar.navbar-default.navbar-fixed-top
       .container
         .navbar-header
           .navbar-brand
             %a{:href => root_path}
               Deshiel
           %ul.nav.navbar-nav
-            %li= link_to '弟子', pupil_home_path
-            %li= link_to '師匠', master_home_path
+            %li.pupil-li
+              = link_to '弟子', pupil_home_path
+            %li.master-li
+              = link_to '師匠', master_home_path
         - if current_user
           .navbar-collapse.collapse
             %ul.nav.navbar-nav.navbar-right
@@ -26,3 +28,15 @@
               %li= link_to 'ログアウト', destroy_user_session_path, method: :delete
     .container
       = yield
+
+:javascript
+  $(document).ready(function() {
+    var pathname = window.location.pathname;
+    $('.navbar-nav li').removeClass("active")
+
+    if (pathname.match(/\/master\//)) {
+      $('.navbar-nav li.master-li').addClass("active")
+    } else if (pathname.match(/\/pupil\//) || pathname == '/') {
+      $('.navbar-nav li.pupil-li').addClass("active")
+    }
+  });
