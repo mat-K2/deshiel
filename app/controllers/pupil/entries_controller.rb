@@ -56,7 +56,7 @@ class Pupil::EntriesController < ApplicationController
   def destroy
     @entry.destroy
     respond_to do |format|
-      format.html { redirect_to entries_url, notice: 'Entry was successfully destroyed.' }
+      format.html { redirect_to pupil_home_path, notice: 'Entry was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
