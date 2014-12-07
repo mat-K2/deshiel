@@ -1,7 +1,7 @@
 - current_user.current_masters.each do |master|
   %h2
     = link_to "師匠: #{master.name}", user_path(master)
-  = render partial: 'pupil/entries/index', locals: { master: master }
+  = render partial: 'entries/index', locals: { entries: current_user.pupil_entries_by_master(master), master_id: master.id, pupil_id: current_user.id, role: 'pupil' }
   %br
 
 - if current_user.masters_to_rate.present?

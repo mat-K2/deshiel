@@ -1,7 +1,7 @@
 - if @pupil
   %h2
     = link_to "弟子: #{@pupil.name}", user_path(@pupil)
-  = render partial: 'master/entries/index', locals: { pupil: @pupil }
+  = render partial: 'entries/index', locals: { entries: current_user.master_entries_by_pupil(@pupil), master_id: current_user.id, pupil_id: @pupil.id, role: 'master' }
 - else
   %h4
     現在、弟子はいません。

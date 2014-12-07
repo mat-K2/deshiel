@@ -1,0 +1,13 @@
+%table.table.table-striped
+  - entries.each do |entry|
+    %tr
+      %td= entry.user.name
+      %td= entry.description
+      %td
+        - if current_user == entry.user
+          = link_to '削除', entry_path(entry, params: {role: role}), :method => :delete, :data => { :confirm => '削除してよろしいですか？' }
+
+%br
+
+= link_to '新規書き込み', new_entry_path(params: {master_id: master_id, pupil_id: pupil_id, role: role}), remote: true
+#new-entry
