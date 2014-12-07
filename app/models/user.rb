@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
     pupil_relations.where("rating IS NOT NULL").inject(0) { |sum, relation| sum + relation.rating }
   end
 
-  def pupil
-    pupils.first
+  def current_pupil
+    self.pupils.where("due_at > ?", Time.now).first
   end
 end
