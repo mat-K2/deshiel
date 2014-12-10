@@ -1,18 +1,21 @@
 - current_user.current_masters.each do |master|
   %h2
-    = link_to "師匠: #{master.name}", user_path(master)
+    = link_to master.name, user_path(master), target: "_blank"
+    に弟子入り中です
   = render partial: 'entries/index', locals: { entries: current_user.pupil_entries_by_master(master), master_id: master.id, pupil_id: current_user.id, role: 'pupil' }
   %br
 
 - if current_user.masters_to_rate.present?
   - current_user.masters_to_rate.each do |master|
-    = master.name
-    = form_tag pupil_rate_path do
+    %h3
+      = link_to master.name, user_path(master), target: '_blank'
+      への弟子入り期間が終了しました
+    = form_tag pupil_rate_path, class: 'form-inline' do
       = hidden_field_tag :master_id, master.id
-      = select_tag :rating, options_for_select([5,4,3,2,1])
-      = submit_tag '評価'
+      = select_tag :rating, options_for_select([['5(大変満足)', 5], ['4(満足)', 4], ['3(普通)', 3],['2(やや不満足)', 2],['1(不満足)', 1]]), class: 'form-control'
+      = submit_tag '評価', class: 'btn btn-primary'
 - else
   %h3 師匠を探す
-  = form_tag pupil_search_path, method: 'GET' do
-    = select_tag :master_genre, options_for_select(User::MASTER_GENRE_LIST)
+  = form_tag pupil_search_path, method: 'GET', class: 'form-inline' do
+    = select_tag :master_genre, options_for_select(User::MASTER_GENRE_LIST), class: 'form-control'
     = submit_tag '探す', class: 'btn btn-default'
