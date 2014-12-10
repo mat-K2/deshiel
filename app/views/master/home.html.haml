@@ -1,6 +1,7 @@
 - if @pupil
   %h2
-    = link_to "弟子: #{@pupil.name}", user_path(@pupil)
+    あなたの弟子: 
+    = link_to @pupil.name, user_path(@pupil), target: '_blank'
   = render partial: 'entries/index', locals: { entries: current_user.master_entries_by_pupil(@pupil) }
   = render partial: 'entries/form', locals: { master_id: current_user.id, pupil_id: @pupil.id }
 - else

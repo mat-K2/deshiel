@@ -1,14 +1,18 @@
-%h1= @user.name
+%h1
+  = @user.name
+  - if current_user == @user
+    = link_to "編集", edit_user_path(@user), class: 'btn btn-default'
 
 - unless current_user == @user
   %p
     - if current_user.master?(@user)
-      %h4
+      .bg-success.notice-style
         弟子入り中です
         = "(#{current_user.pupil_due(@user.id)}まで)"
     - else
       - if @user.has_pupil?
-        %h4 既に弟子がいます
+        .bg-danger.notice-style
+          既に弟子がいます
       - else
         = form_for @master_relation do |f|
           = f.hidden_field :master_id, value: @user.id
@@ -25,6 +29,3 @@
     %th 得意分野
     %td
       = @user.master_genre_with_rate
-
-- if current_user == @user
-  = link_to "編集", edit_user_path(@user)

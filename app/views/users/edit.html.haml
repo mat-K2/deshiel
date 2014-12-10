@@ -18,3 +18,4 @@
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit '更新する', class: 'btn btn-primary'
+      = link_to 'キャンセル', user_path(@user), class: 'btn btn-default', data: { confirm: '編集内容は破棄されます。よろしいですか？' }
