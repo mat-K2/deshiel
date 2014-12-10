@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   has_many :pupil_relations, class_name: 'MasterRelation', foreign_key: :master_id
   has_many :pupils, source: :user, through: :pupil_relations
 
+  validates :name, presence: true
+
   MASTER_GENRE_LIST = ["料理、グルメ、レシピ", "エンターテインメント", "インターネット、PC、家電", "健康", "美容、ファッション", "ビジネス", "恋愛", "人間関係", "子育て", "マナー", "教養、学問", "スポーツ、アウトドア", "ギャンブル", "おしゃべり、雑談", "地域、旅行", "その他"]
 
   PUPIL_AVAILABLE_PERIOD = 7.day.freeze
