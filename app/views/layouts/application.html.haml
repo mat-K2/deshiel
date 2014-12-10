@@ -25,7 +25,8 @@
         - if current_user
           .navbar-collapse.collapse
             %ul.nav.navbar-nav.navbar-right
-              %li= link_to current_user.name, user_path(current_user)
+              %li.user-li
+                = link_to current_user.name, user_path(current_user)
               %li= link_to 'ログアウト', destroy_user_session_path, method: :delete
     .container
       = yield
@@ -39,5 +40,7 @@
       $('.navbar-nav li.master-li').addClass("active")
     } else if (pathname.match(/\/pupil\//) || pathname == '/') {
       $('.navbar-nav li.pupil-li').addClass("active")
+    } else if (pathname.match(/\/users\//)) {
+      $('.navbar-nav li.user-li').addClass("active")
     }
   });
