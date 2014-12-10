@@ -12,4 +12,15 @@
     = f.hidden_field :pupil_id, value: params[:pupil_id].to_i
     = hidden_field_tag :role, params[:role]
   .actions
-    = f.submit '書き込む', class: 'btn btn-primary'
+    = f.submit '書き込む', id: 'post_entry', class: 'btn btn-primary', disabled: 'disabled'
+
+:javascript
+  $(document).ready(function() {
+    $('#entry_description').keyup(function() {
+      if ($('#entry_description')[0].value.length == 0) {
+        $('#post_entry')[0].disabled = true
+      } else {
+        $('#post_entry')[0].disabled = false
+      }
+    });
+  });
