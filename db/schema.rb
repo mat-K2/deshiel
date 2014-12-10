@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141210114305) do
+ActiveRecord::Schema.define(version: 20141210120637) do
 
   create_table "entries", force: true do |t|
     t.string   "description", null: false
@@ -23,12 +23,13 @@ ActiveRecord::Schema.define(version: 20141210114305) do
   end
 
   create_table "master_relations", force: true do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "master_id",  null: false
+    t.integer  "user_id",      null: false
+    t.integer  "master_id",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "due_at"
     t.integer  "rating"
+    t.string   "master_genre", null: false
   end
 
   create_table "users", force: true do |t|

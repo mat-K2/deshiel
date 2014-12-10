@@ -23,8 +23,7 @@
   %tr
     %th 得意分野
     %td
-      = @user.master_genre
-      = "（#{@user.total_rating}）"
+      = @user.master_genre_with_rate
 
 - if current_user == @user
   = link_to "編集", edit_user_path(@user)

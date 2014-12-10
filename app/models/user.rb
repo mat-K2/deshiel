@@ -21,7 +21,8 @@ class User < ActiveRecord::Base
   PUPIL_AVAILABLE_PERIOD = 7.day.freeze
 
   def become_pupil(master_id)
-    relation = self.master_relations.build(master_id: master_id, due_at: Time.now + PUPIL_AVAILABLE_PERIOD)
+    master_user = User.find(master_id)
+    relation = self.master_relations.build(master_id: master_user.id, due_at: Time.now + PUPIL_AVAILABLE_PERIOD, master_genre: master_user.master_genre)
     relation.save
   end
 
@@ -49,8 +50,17 @@ class User < ActiveRecord::Base
     masters.where("due_at < ? AND rating IS NULL", Time.now)
   end
 
-  def total_rating
-    pupil_relations.where("rating IS NOT NULL").inject(0) { |sum, relation| sum + relation.rating }
+  def total_rating(genre=nil)
+    target_relations = if genre
+                         rated_pupil_relations.where("master_genre == ?", genre)
+                       else
+                         rated_pupil_relations
+                       end
+    target_relations.inject(0) { |sum, relation| sum + relation.rating }
+  end
+
+  def rated_pupil_relations
+    pupil_relations.where("rating IS NOT NULL")
   end
 
   def current_pupil
@@ -59,5 +69,9 @@ class User < ActiveRecord::Base
 
   def has_pupil?
     current_pupil.present?
+  end
+
+  def master_genre_with_rate
+    master_genre.present? ? "#{master_genre}(#{total_rating(master_genre)})" : 'なし'
   end
 end
