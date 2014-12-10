@@ -2,7 +2,8 @@
   %h2
     = link_to master.name, user_path(master), target: "_blank"
     に弟子入り中です
-  = render partial: 'entries/index', locals: { entries: current_user.pupil_entries_by_master(master), master_id: master.id, pupil_id: current_user.id, role: 'pupil' }
+  = render partial: 'entries/index', locals: { entries: current_user.pupil_entries_by_master(master) }
+  = render partial: 'entries/form', locals: { master_id: master.id, pupil_id: current_user.id }
   %br
 
 - if current_user.masters_to_rate.present?

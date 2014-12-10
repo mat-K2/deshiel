@@ -1,5 +1,8 @@
 class PupilController < ApplicationController
+  before_action :load_role
+
   def home
+    @entry = Entry.new
   end
 
   def search
@@ -19,5 +22,9 @@ class PupilController < ApplicationController
 
   def rating_params
     params.permit(:rating)
+  end
+
+  def load_role
+    @role = 'pupil'
   end
 end

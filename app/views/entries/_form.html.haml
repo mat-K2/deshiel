@@ -8,9 +8,9 @@
 
   .field
     = f.text_area :description, size: '40x5'
-    = f.hidden_field :master_id, value: params[:master_id].to_i
-    = f.hidden_field :pupil_id, value: params[:pupil_id].to_i
-    = hidden_field_tag :role, params[:role]
+    = f.hidden_field :master_id, value: master_id
+    = f.hidden_field :pupil_id, value: pupil_id
+    = hidden_field_tag :role, @role
   .actions
     = f.submit '書き込む', id: 'post_entry', class: 'btn btn-primary', disabled: 'disabled'
 

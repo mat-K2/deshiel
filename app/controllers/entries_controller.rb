@@ -1,14 +1,6 @@
 class EntriesController < ApplicationController
   before_action :set_entry, only: [:show, :edit, :update, :destroy]
 
-  def new
-    @entry = Entry.new
-
-    respond_to do |format|
-      format.js { render :new }
-    end
-  end
-
   def create
     @entry = current_user.entries.build(entry_params)
 
