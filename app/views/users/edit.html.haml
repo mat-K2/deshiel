@@ -14,7 +14,7 @@
     %label.col-sm-2.control-label{ for: 'user_master_genre' }
       得意分野
     .col-sm-10
-      = f.select :master_genre, User::MASTER_GENRE_LIST
+      = f.select :master_genre, User::MASTER_GENRE_LIST, include_blank: true
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit '更新する', class: 'btn btn-primary'
