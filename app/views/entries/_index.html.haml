@@ -5,4 +5,4 @@
       %td= entry.description
       %td
         - if current_user == entry.user
-          = link_to '削除', entry_path(entry, params: {role: @role}), :method => :delete, :data => { :confirm => '削除してよろしいですか？' }
+          = link_to '削除', entry_path(entry, params: {role: @role, view_order: view_order}), :method => :delete, :data => { :confirm => '削除してよろしいですか？' }

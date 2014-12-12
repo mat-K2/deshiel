@@ -1,11 +1,11 @@
 - current_user.current_masters.each_with_index do |master, i|
-  %div{id: "view_#{i}"}
+  %div{id: "view_order_#{i}"}
     %h2.master-elem
       = link_to master.name, user_path(master), target: "_blank"
       に弟子入り中です
     %div.entry-elem
-      = render partial: 'entries/index', locals: { entries: current_user.pupil_entries_by_master(master) }
-      = render partial: 'entries/form', locals: { master_id: master.id, pupil_id: current_user.id }
+      = render partial: 'entries/index', locals: { entries: current_user.pupil_entries_by_master(master), view_order: i }
+      = render partial: 'entries/form', locals: { master_id: master.id, pupil_id: current_user.id, view_order: i }
 
 - if current_user.masters_to_rate.present?
   - current_user.masters_to_rate.each do |master|
@@ -24,15 +24,26 @@
 
 :javascript
   $(document).ready(function() {
-    $('.entry-elem').hide()
-    $("#view_0 .entry-elem").show()
+    initialize_entry_view()
+
     $('.master-elem').click(function() {
-      var view_id = $(this).parent().attr("id")
-      var entry_node = $('#' + view_id).find(".entry-elem")
+      var entry_node = $(this).parent().find(".entry-elem")
 
       $('.entry-elem').slideUp()
       if (entry_node.css('display') == 'none') {
         entry_node.slideDown()
       }
     });
+
+    function initialize_entry_view() {
+      var query = location.search.substring(1)
+      var view_order_id = query.split("=")[1]
+
+      $('.entry-elem').hide()
+      if (view_order_id == null) {
+        $("#view_order_0 .entry-elem").show()
+      } else {
+        $("#view_order_" + view_order_id + " .entry-elem").show()
+      }
+    }
   });

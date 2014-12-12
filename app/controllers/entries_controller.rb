@@ -33,9 +33,9 @@ class EntriesController < ApplicationController
     def redirect_path_after_action
       case params[:role]
       when 'pupil'
-        pupil_home_path
+        pupil_home_path(params: {view_order: params[:view_order]})
       when 'master'
-        master_home_path
+        master_home_path(params: {view_order: params[:view_order]})
       end
     end
 end

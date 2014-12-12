@@ -7,20 +7,28 @@
           %li= msg
 
   .field
-    = f.text_area :description, size: '40x5'
+    = f.text_area :description, size: '40x5', class: "entry-description"
     = f.hidden_field :master_id, value: master_id
     = f.hidden_field :pupil_id, value: pupil_id
     = hidden_field_tag :role, @role
+    = hidden_field_tag :view_order, view_order
   .actions
-    = f.submit '書き込む', id: 'post_entry', class: 'btn btn-primary', disabled: 'disabled'
+    = f.submit '書き込む', class: "btn btn-primary post-entry", disabled: 'disabled'
 
 :javascript
   $(document).ready(function() {
-    $('#entry_description').keyup(function() {
-      if ($('#entry_description')[0].value.length == 0) {
-        $('#post_entry')[0].disabled = true
-      } else {
-        $('#post_entry')[0].disabled = false
+    $('.entry-description').keyup(function() {
+      var master_node = $(this).parents("#view_order_#{view_order}")
+      var entry_node = master_node.find(".entry-elem")[0]
+
+      if (entry_node) {
+        var post_node = master_node.find(".post-entry")[0]
+
+        if ($(this)[0].value.length == 0) {
+          post_node.disabled = true
+        } else {
+          post_node.disabled = false
+        }
       }
     });
   });
