@@ -8,5 +8,4 @@
       = render partial: 'entries/index', locals: { entries: current_user.entries_by_pupil(@pupil) }
       = render partial: 'entries/form', locals: { master_id: current_user.id, pupil_id: @pupil.id }
 - else
-  %h4
-    現在、弟子はいません。
+  %h4 現在、弟子はいません。
