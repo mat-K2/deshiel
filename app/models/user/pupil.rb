@@ -25,7 +25,7 @@ module User::Pupil
     master_relations.find{ |relation| relation.due_at >= Time.now && relation.master_id == master_id }.due_at.strftime("%Y/%m/%d %H:%M:%S")
   end
 
-  def masters_to_rate
-    masters.where("due_at < ? AND rating IS NULL", Time.now)
+  def master_relations_to_rate
+    master_relations.where("due_at < ? AND rating IS NULL", Time.now)
   end
 end

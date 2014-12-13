@@ -2,12 +2,15 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: "users/sessions", registrations: "users/registrations" }
 
   resources :users, only: %w(show edit update)
-  resources :master_relations, only: %w(create)
+  resources :master_relations, only: %w(create) do
+    member do
+      put 'rate'
+    end
+  end
   resources :entries
   namespace :pupil do
     get 'home'
     get 'search'
-    post 'rate'
   end
 
   namespace :master do

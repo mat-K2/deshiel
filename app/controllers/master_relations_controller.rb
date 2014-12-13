@@ -10,6 +10,15 @@ class MasterRelationsController < ApplicationController
     end
   end
 
+  def rate
+    master_relation = current_user.master_relations_to_rate.find(params[:id])
+    if master_relation.update_attributes(rating_params)
+      redirect_to pupil_home_path
+    else
+      render :home
+    end
+  end
+
   private
 
   def load_master
@@ -18,5 +27,9 @@ class MasterRelationsController < ApplicationController
 
   def master_id
     params[:master_relation][:master_id]
+  end
+
+  def rating_params
+    params.require(:master_relation).permit(:rating)
   end
 end
