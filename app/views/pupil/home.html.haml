@@ -1,6 +1,6 @@
 - if @current_masters.present?
   %ul.list-group
-    - current_user.current_masters.each_with_index do |master, i|
+    - @current_masters.each_with_index do |master, i|
       %div{id: "view_order_#{i}"}
         %li.master-elem.list-group-item
           = master.name
