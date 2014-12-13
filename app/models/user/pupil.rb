@@ -2,7 +2,7 @@ module User::Pupil
   extend ActiveSupport::Concern
 
   included do
-    has_many :pupil_entries, class_name: 'Entry', foreign_key: :pupil_id
+    has_many :entries_as_pupil, class_name: 'Entry', foreign_key: :pupil_id
     has_many :master_relations
     has_many :masters, through: :master_relations
   end
@@ -23,8 +23,8 @@ module User::Pupil
     masters.where("due_at >= ?", Time.now)
   end
 
-  def pupil_entries_by_master(master)
-    pupil_entries.where(master_id: master.id)
+  def entries_by_master(master)
+    entries_as_pupil.where(master_id: master.id)
   end
 
   def pupil_due(master_id)

@@ -4,7 +4,7 @@
       あなたの弟子: 
       = link_to @pupil.name, user_path(@pupil), target: '_blank'
     %div.entry-elem
-      = render partial: 'entries/index', locals: { entries: current_user.master_entries_by_pupil(@pupil) }
+      = render partial: 'entries/index', locals: { entries: current_user.entries_by_pupil(@pupil) }
       = render partial: 'entries/form', locals: { master_id: current_user.id, pupil_id: @pupil.id }
 - else
   %h4

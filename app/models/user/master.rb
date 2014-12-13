@@ -2,15 +2,15 @@ module User::Master
   extend ActiveSupport::Concern
 
   included do
-    has_many :master_entries, class_name: 'Entry', foreign_key: :master_id
+    has_many :entries_as_master, class_name: 'Entry', foreign_key: :master_id
     has_many :pupil_relations, class_name: 'MasterRelation', foreign_key: :master_id
     has_many :pupils, source: :user, through: :pupil_relations
   end
 
   MASTER_GENRE_LIST = ["料理、グルメ、レシピ", "エンターテインメント", "インターネット、PC、家電", "健康", "美容、ファッション", "ビジネス", "恋愛", "人間関係", "子育て", "マナー", "教養、学問", "スポーツ、アウトドア", "ギャンブル", "おしゃべり、雑談", "地域、旅行", "その他"]
 
-  def master_entries_by_pupil(pupil)
-    master_entries.where(pupil_id: pupil.id)
+  def entries_by_pupil(pupil)
+    entries_as_master.where(pupil_id: pupil.id)
   end
 
   def rated_pupil_relations

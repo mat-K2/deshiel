@@ -4,7 +4,7 @@
       = link_to master.name, user_path(master), target: "_blank"
       に弟子入り中です
     %div.entry-elem
-      = render partial: 'entries/index', locals: { entries: current_user.pupil_entries_by_master(master), view_order: i }
+      = render partial: 'entries/index', locals: { entries: current_user.entries_by_master(master), view_order: i }
       = render partial: 'entries/form', locals: { master_id: master.id, pupil_id: current_user.id, view_order: i }
 
 - if current_user.masters_to_rate.present?
