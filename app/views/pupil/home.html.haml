@@ -1,27 +1,24 @@
-- current_user.current_masters.each_with_index do |master, i|
-  %div{id: "view_order_#{i}"}
-    %h3.master-elem
-      = master.name
-      .sub-title
-        に弟子入り中です
-    %div.entry-elem
-      = render partial: 'entries/index', locals: { entries: current_user.entries_by_master(master), view_order: i }
-      = render partial: 'entries/form', locals: { master_id: master.id, pupil_id: current_user.id, view_order: i }
-
-- if current_user.masters_to_rate.present?
-  - current_user.masters_to_rate.each do |master|
-    %h3
-      = link_to master.name, user_path(master), target: '_blank'
-      への弟子入り期間が終了しました
-    = form_tag pupil_rate_path, class: 'form-inline' do
-      = hidden_field_tag :master_id, master.id
-      = select_tag :rating, options_for_select([['5(大変満足)', 5], ['4(満足)', 4], ['3(普通)', 3],['2(やや不満足)', 2],['1(不満足)', 1]]), class: 'form-control'
-      = submit_tag '評価', class: 'btn btn-primary'
+- if @current_masters.present?
+  - current_user.current_masters.each_with_index do |master, i|
+    %div{id: "view_order_#{i}"}
+      %h3.master-elem
+        = master.name
+        .sub-title
+          に弟子入り中です
+      %div.entry-elem
+        = render partial: 'entries/index', locals: { entries: current_user.entries_by_master(master), view_order: i }
+        = render partial: 'entries/form', locals: { master_id: master.id, pupil_id: current_user.id, view_order: i }
 - else
-  %h3 師匠を探す
-  = form_tag pupil_search_path, method: 'GET', class: 'form-inline' do
-    = select_tag :master_genre, options_for_select(User::MASTER_GENRE_LIST), class: 'form-control'
-    = submit_tag '探す', class: 'btn btn-default'
+  %h4 現在、弟子入りしていません。
+
+- current_user.masters_to_rate.each do |master|
+  %h3
+    = link_to master.name, user_path(master), target: '_blank'
+    への弟子入り期間が終了しました
+  = form_tag pupil_rate_path, class: 'form-inline' do
+    = hidden_field_tag :master_id, master.id
+    = select_tag :rating, options_for_select([['5(大変満足)', 5], ['4(満足)', 4], ['3(普通)', 3],['2(やや不満足)', 2],['1(不満足)', 1]]), class: 'form-control'
+    = submit_tag '評価', class: 'btn btn-primary'
 
 :javascript
   $(document).ready(function() {

@@ -17,6 +17,9 @@
             %a{:href => root_path}
               Deshiel
         .navbar-collapse.collapse
+          = form_tag pupil_search_path, method: 'GET', class: 'navbar-form navbar-left' do
+            = select_tag :master_genre, options_for_select(User::MASTER_GENRE_LIST), class: 'form-control'
+            = submit_tag '師匠を探す', class: 'btn btn-default'
           - if current_user
             %ul.nav.navbar-nav.navbar-right
               %li.user-li
