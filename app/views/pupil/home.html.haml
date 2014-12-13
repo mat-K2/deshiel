@@ -1,8 +1,9 @@
 - current_user.current_masters.each_with_index do |master, i|
   %div{id: "view_order_#{i}"}
     %h3.master-elem
-      = link_to master.name, user_path(master), target: "_blank"
-      に弟子入り中です
+      = master.name
+      .sub-title
+        に弟子入り中です
     %div.entry-elem
       = render partial: 'entries/index', locals: { entries: current_user.entries_by_master(master), view_order: i }
       = render partial: 'entries/form', locals: { master_id: master.id, pupil_id: current_user.id, view_order: i }

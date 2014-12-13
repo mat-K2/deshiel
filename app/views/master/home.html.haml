@@ -1,8 +1,9 @@
 - if @pupil
   %div{id: "view_order_0"}
     %h3
-      あなたの弟子: 
-      = link_to @pupil.name, user_path(@pupil), target: '_blank'
+      .sub-title
+        あなたの弟子: 
+      = @pupil.name
     %div.entry-elem
       = render partial: 'entries/index', locals: { entries: current_user.entries_by_pupil(@pupil) }
       = render partial: 'entries/form', locals: { master_id: current_user.id, pupil_id: @pupil.id }

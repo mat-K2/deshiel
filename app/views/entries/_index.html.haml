@@ -3,8 +3,8 @@
 %table.table.table-striped
   - entries.each do |entry|
     %tr
-      %td= entry.user.name
-      %td= entry.description
+      %td= link_to entry.user.name, user_path(entry.user), target: '_blank'
+      %td= simple_format(entry.description)
       %td
         - if current_user == entry.user && entries.last == entry
           = link_to '削除', entry_path(entry, params: {role: @role, view_order: view_order}), :method => :delete, :data => { :confirm => '削除してよろしいですか？' }
