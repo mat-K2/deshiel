@@ -9,12 +9,6 @@ module User::Pupil
 
   PUPIL_AVAILABLE_PERIOD = 7.day.freeze
 
-  def become_pupil(master_id)
-    master_user = User.find(master_id)
-    relation = self.master_relations.build(master_id: master_user.id, due_at: Time.now + PUPIL_AVAILABLE_PERIOD, master_genre: master_user.master_genre)
-    relation.save
-  end
-
   def master?(master)
     current_masters.include?(master)
   end
