@@ -1,6 +1,6 @@
 - current_user.current_masters.each_with_index do |master, i|
   %div{id: "view_order_#{i}"}
-    %h2.master-elem
+    %h3.master-elem
       = link_to master.name, user_path(master), target: "_blank"
       に弟子入り中です
     %div.entry-elem
