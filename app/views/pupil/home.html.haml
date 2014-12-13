@@ -20,6 +20,14 @@
     = f.select :rating, options_for_select([['5(大変満足)', 5], ['4(満足)', 4], ['3(普通)', 3],['2(やや不満足)', 2],['1(不満足)', 1]]), class: 'form-control'
     = f.submit '評価', class: 'btn btn-primary'
 
+- if @master_candidates.present?
+  %ul.list-group
+    - @master_candidates.each do |user|
+      %li.list-group-item
+        = link_to user.name, user_path(user), target: '_blank'
+        .sub-title
+          に弟子入り申請済です。しばらくお待ちください。
+
 :javascript
   $(document).ready(function() {
     initialize_entry_view()

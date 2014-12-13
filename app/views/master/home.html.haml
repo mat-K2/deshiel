@@ -8,5 +8,21 @@
       %div.entry-elem
         = render partial: 'entries/index', locals: { entries: current_user.entries_by_pupil(@pupil) }
         = render partial: 'entries/form', locals: { master_id: current_user.id, pupil_id: @pupil.id }
+- elsif @pupil_relations_to_accept.present?
+  %h4 弟子入り申請ユーザ
+  %p
+    %table.table.table-bordered
+      %tr
+        %th 名前
+        %th 紹介文
+        %th
+      - @pupil_relations_to_accept.each do |pupil_relation|
+        %tr
+          %td
+            = link_to pupil_relation.user.name, user_path(pupil_relation.user), target: '_blank'
+          %td= pupil_relation.user.description
+          %td
+            = form_for pupil_relation, url: accept_master_relation_path(pupil_relation), method: 'PUT' do |f|
+              = f.submit '承認する', class: 'btn btn-primary'
 - else
   %h4 現在、弟子はいません。

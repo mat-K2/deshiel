@@ -37,4 +37,8 @@ module User::Master
   def master_genre_with_rate
     master_genre.present? ? "#{master_genre}(#{total_rating(master_genre)})" : 'なし'
   end
+
+  def pupil_relations_to_accept
+    pupil_relations.where(due_at: nil)
+  end
 end

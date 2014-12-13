@@ -13,10 +13,13 @@
       - if @user.has_pupil?
         .bg-danger.notice-style
           既に弟子がいます
+      - elsif current_user.applied_pupil?(@user)
+        .bg-warning.notice-style
+          弟子入り申請済です。しばらくお待ちください。
       - else
         = form_for @master_relation do |f|
           = f.hidden_field :master_id, value: @user.id
-          = f.submit '弟子入り', class: 'btn btn-primary'
+          = f.submit '弟子入りしたい', class: 'btn btn-primary'
 
 %table.table.table-bordered
   %tr

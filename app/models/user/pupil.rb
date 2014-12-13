@@ -7,8 +7,6 @@ module User::Pupil
     has_many :masters, through: :master_relations
   end
 
-  PUPIL_AVAILABLE_PERIOD = 7.day.freeze
-
   def master?(master)
     current_masters.include?(master)
   end
@@ -27,5 +25,13 @@ module User::Pupil
 
   def master_relations_to_rate
     master_relations.where("due_at < ? AND rating IS NULL", Time.now)
+  end
+
+  def applied_pupil?(master_user)
+    master_relations.where(due_at: nil).map{ |r| r.master_id }.include?(master_user.id)
+  end
+
+  def master_candidates
+    masters.where("due_at IS NULL")
   end
 end

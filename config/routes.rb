@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :users, only: %w(show edit update)
   resources :master_relations, only: %w(create) do
     member do
+      put 'accept'
       put 'rate'
     end
   end

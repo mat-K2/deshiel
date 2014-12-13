@@ -2,11 +2,20 @@ class MasterRelationsController < ApplicationController
   before_action :load_master, only: %w(create)
 
   def create
-    relation = current_user.master_relations.build(master_id: @master.id, due_at: Time.now + User::Pupil::PUPIL_AVAILABLE_PERIOD, master_genre: @master.master_genre)
+    relation = current_user.master_relations.build(master_id: @master.id, master_genre: @master.master_genre)
     if relation.save
-      redirect_to @master, notice: '弟子入りしました'
+      redirect_to @master, notice: '弟子入り申請しました'
     else
       render 'users/show', object: User.find(master_id)
+    end
+  end
+
+  def accept
+    relation = current_user.pupil_relations.find(params[:id])
+    if relation.accept
+      redirect_to master_home_path, notice: '弟子入りを承認しました'
+    else
+      render 'master/home'
     end
   end
 

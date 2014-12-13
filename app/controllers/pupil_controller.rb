@@ -4,6 +4,7 @@ class PupilController < ApplicationController
 
   def home
     @current_masters = current_user.current_masters
+    @master_candidates = current_user.master_candidates
     @entry = Entry.new
   end
 

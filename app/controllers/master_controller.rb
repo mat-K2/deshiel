@@ -4,6 +4,7 @@ class MasterController < ApplicationController
   def home
     @pupil = current_user.current_pupil
     @entry = Entry.new
+    @pupil_relations_to_accept = current_user.pupil_relations_to_accept
   end
 
   private
