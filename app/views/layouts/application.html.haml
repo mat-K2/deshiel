@@ -16,12 +16,6 @@
           .navbar-brand
             %a{:href => root_path}
               Deshiel
-          - if current_user
-            %ul.nav.navbar-nav
-              %li.pupil-li
-                = link_to '弟子', pupil_home_path
-              %li.master-li
-                = link_to '師匠', master_home_path
         .navbar-collapse.collapse
           - if current_user
             %ul.nav.navbar-nav.navbar-right
@@ -37,16 +31,22 @@
               = f.submit "ログイン", class: 'btn btn-default'
 
     .container
+      - if current_user
+        %ul.nav.nav-tabs
+          %li.pupil-li.active
+            = link_to '弟子ページ', pupil_home_path
+          %li.master-li
+            = link_to '師匠ページ', master_home_path
       = yield
 
 :javascript
   $(document).ready(function() {
     var pathname = window.location.pathname;
-    $('.navbar-nav li').removeClass("active")
+    $('.nav-tabs li').removeClass("active")
 
     if (pathname.match(/\/master\//)) {
-      $('.navbar-nav li.master-li').addClass("active")
+      $('.nav-tabs li.master-li').addClass("active")
     } else if (pathname.match(/\/pupil\//) || pathname == '/') {
-      $('.navbar-nav li.pupil-li').addClass("active")
+      $('.nav-tabs li.pupil-li').addClass("active")
     }
   });
