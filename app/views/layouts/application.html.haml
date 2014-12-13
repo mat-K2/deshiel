@@ -22,12 +22,20 @@
                 = link_to '弟子', pupil_home_path
               %li.master-li
                 = link_to '師匠', master_home_path
-        - if current_user
-          .navbar-collapse.collapse
+        .navbar-collapse.collapse
+          - if current_user
             %ul.nav.navbar-nav.navbar-right
               %li.user-li
                 = link_to current_user.name, user_path(current_user)
               %li= link_to 'ログアウト', destroy_user_session_path, method: :delete
+          - else
+            = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'navbar-form navbar-right' }) do |f|
+              .form-group
+                = f.email_field :email, class: 'form-control', placeholder: 'Email'
+              .form-group
+                = f.password_field :password, class: 'form-control', placeholder: 'Password'
+              = f.submit "ログイン", class: 'btn btn-default'
+
     .container
       = yield
 
