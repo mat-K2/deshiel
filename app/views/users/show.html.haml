@@ -23,8 +23,10 @@
 
 %table.table.table-bordered
   %tr
-    %th 名前
-    %td= @user.name
+    %th.col-md-2
+      名前
+    %td.col-md-10
+      = @user.name
   %tr
     %th 紹介文
     %td= @user.description

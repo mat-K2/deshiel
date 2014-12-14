@@ -13,9 +13,11 @@
   %p
     %table.table.table-bordered
       %tr
-        %th 名前
-        %th 紹介文
-        %th
+        %th.col-md-2
+          名前
+        %th.col-md-9
+          紹介文
+        %th.col-md-1
       - @pupil_relations_to_accept.each do |pupil_relation|
         %tr
           %td
