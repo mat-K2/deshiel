@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.0.0'
+
 gem 'rails', '4.1.8'
 
 # Use SCSS for stylesheets
@@ -41,7 +43,9 @@ end
 gem 'rspec-rails'
 gem 'haml-rails'
 gem 'devise'
+gem 'thin'
 
 group :production do
   gem 'pg'
+  gem 'rails_12factor'
 end
