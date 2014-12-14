@@ -19,7 +19,7 @@ module User::Master
 
   def total_rating(genre=nil)
     target_relations = if genre
-                         rated_pupil_relations.where("master_genre == ?", genre)
+                         rated_pupil_relations.where("master_genre_tags == ?", genre)
                        else
                          rated_pupil_relations
                        end
@@ -35,7 +35,7 @@ module User::Master
   end
 
   def master_genre_with_rate
-    master_genre.present? ? "#{master_genre}(#{total_rating(master_genre)})" : 'なし'
+    master_genre_tags.present? ? "#{master_genre_tags}(#{total_rating(master_genre_tags)})" : 'なし'
   end
 
   def pupil_relations_to_accept

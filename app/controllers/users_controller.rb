@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   end
 
   def search
-    @users = User.search_master(params['master_genre'])
+    @users = User.search_master(params['master_genre_query'])
   end
 
   private
@@ -31,6 +31,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :description, :master_genre)
+    params.require(:user).permit(:name, :description, :master_genre_tags)
   end
 end

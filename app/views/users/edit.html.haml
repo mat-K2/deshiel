@@ -11,10 +11,10 @@
     .col-sm-10
       = f.text_area :description, class: 'form-control'
   .form-group
-    %label.col-sm-2.control-label{ for: 'user_master_genre' }
+    %label.col-sm-2.control-label{ for: 'user_master_genre_tags' }
       得意分野
     .col-sm-10
-      = f.select :master_genre, User::MASTER_GENRE_LIST, include_blank: true
+      = f.text_field :master_genre_tags, class: 'form-control'
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit '更新する', class: 'btn btn-primary'

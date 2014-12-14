@@ -18,7 +18,7 @@
               Deshiel
         .navbar-collapse.collapse
           = form_tag search_users_path, method: 'GET', class: 'navbar-form navbar-left' do
-            = text_field_tag :master_genre, '', class: 'form-control search-master-form', placeholder: '学びたいことを入力してください', value: params[:master_genre]
+            = text_field_tag :master_genre_query, '', class: 'form-control search-master-form', placeholder: '学びたいことを入力してください', value: params[:master_genre_query]
             = submit_tag '師匠を探す', class: 'btn btn-default'
           - if current_user
             %ul.nav.navbar-nav.navbar-right

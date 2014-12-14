@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141210120637) do
+ActiveRecord::Schema.define(version: 20141214120443) do
 
   create_table "entries", force: true do |t|
     t.string   "description", null: false
@@ -23,13 +23,13 @@ ActiveRecord::Schema.define(version: 20141210120637) do
   end
 
   create_table "master_relations", force: true do |t|
-    t.integer  "user_id",      null: false
-    t.integer  "master_id",    null: false
+    t.integer  "user_id",           null: false
+    t.integer  "master_id",         null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "due_at"
     t.integer  "rating"
-    t.string   "master_genre", null: false
+    t.string   "master_genre_tags", null: false
   end
 
   create_table "users", force: true do |t|
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20141210120637) do
     t.datetime "updated_at"
     t.string   "name",                                null: false
     t.string   "description"
-    t.string   "master_genre"
+    t.string   "master_genre_tags"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
