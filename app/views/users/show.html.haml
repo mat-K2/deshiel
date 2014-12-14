@@ -34,3 +34,23 @@
     %th 得意分野
     %td
       = @user.master_genre_tags
+
+%h4 評価一覧
+- if @user.rated_pupil_relations.present?
+  %table.table.table-bordered.table-striped
+    %thead
+      %tr
+        %th.col-md-4
+          弟子
+        %th.col-md-2
+          評価値
+        %th.col-md-6
+          得意分野
+    %tbody
+      - @user.rated_pupil_relations.each do |r|
+        %tr
+          %td= r.user.name
+          %td= r.rating
+          %td= r.master_genre_tags
+- else
+  まだ評価を受けていません
