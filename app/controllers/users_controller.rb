@@ -1,8 +1,12 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %w(show edit update)
 
+  skip_before_action :authenticate_user!, only: %w(show)
+
   def show
-    @master_relation = current_user.master_relations.build
+    if user_signed_in?
+      @master_relation = current_user.master_relations.build
+    end
   end
 
   def edit
