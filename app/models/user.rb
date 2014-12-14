@@ -9,4 +9,8 @@ class User < ActiveRecord::Base
 
   include User::Master
   include User::Pupil
+
+  def self.search_master(master_genre_query)
+    User.all
+  end
 end

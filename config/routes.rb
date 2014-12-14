@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: "users/sessions", registrations: "users/registrations" }
 
-  resources :users, only: %w(show edit update)
+  resources :users, only: %w(show edit update) do
+    collection do
+      get 'search'
+    end
+  end
+
   resources :master_relations, only: %w(create) do
     member do
       put 'accept'
@@ -11,7 +16,6 @@ Rails.application.routes.draw do
   resources :entries
   namespace :pupil do
     get 'home'
-    get 'search'
   end
 
   namespace :master do

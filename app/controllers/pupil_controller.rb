@@ -8,10 +8,6 @@ class PupilController < ApplicationController
     @entry = Entry.new
   end
 
-  def search
-    @users = User.where("id != ? AND master_genre == ?", current_user.try(:id) || 0, params['master_genre'])
-  end
-
   private
 
   def load_role

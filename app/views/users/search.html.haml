@@ -2,7 +2,7 @@
   師匠一覧
   = "【#{params['master_genre']}】"
 
-= link_to '<< 前の画面に戻る', :back, class: 'btn btn-default'
+= link_to '<< ホームに戻る', home_path, class: 'btn btn-default'
 
 - if @users.present?
   %table.table.table-borderd

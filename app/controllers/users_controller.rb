@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %w(show edit update)
 
-  skip_before_action :authenticate_user!, only: %w(show)
+  skip_before_action :authenticate_user!, only: %w(show search)
 
   def show
     if user_signed_in?
@@ -18,6 +18,10 @@ class UsersController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def search
+    @users = User.search_master(params['master_genre'])
   end
 
   private
