@@ -1,19 +1,21 @@
-%h2
+%h3
   師匠一覧
   = "【#{params['master_genre']}】"
 
-= link_to '<< ホームに戻る', home_path, class: 'btn btn-default'
+= link_to '<< ホームに戻る', root_path, class: 'btn btn-default'
 
 - if @users.present?
-  %table.table.table-borderd
+  %table.table.table-striped
     %thead
-      %th 名前
-      %th 評価値
-      %th 紹介文
-    - @users.each do |user|
-      %tbody
-        %td= link_to user.name, user_path(user)
-        %td= user.total_rating(params['master_genre'])
-        %td= user.description
+      %tr
+        %th 名前
+        %th 評価値
+        %th 紹介文
+    %tbody
+      - @users.each do |user|
+        %tr
+          %td= link_to user.name, user_path(user)
+          %td= user.total_rating(params['master_genre'])
+          %td= user.description
 - else
   %h4 該当ユーザはいません

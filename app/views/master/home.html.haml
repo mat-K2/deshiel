@@ -9,7 +9,7 @@
         = render partial: 'entries/index', locals: { entries: current_user.entries_by_pupil(@pupil) }
         = render partial: 'entries/form', locals: { master_id: current_user.id, pupil_id: @pupil.id }
 - elsif @pupil_relations_to_accept.present?
-  %h4 弟子入り申請ユーザ
+  %h3 弟子入り申請ユーザ
   %p
     %table.table.table-bordered
       %tr

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: "users/sessions", registrations: "users/registrations" }
 
+  get 'home', to: 'home#show'
+
   resources :users, only: %w(show edit update) do
     collection do
       get 'search'
@@ -13,7 +15,9 @@ Rails.application.routes.draw do
       put 'rate'
     end
   end
+
   resources :entries
+
   namespace :pupil do
     get 'home'
   end
@@ -21,8 +25,6 @@ Rails.application.routes.draw do
   namespace :master do
     get 'home'
   end
-
-  get 'home', to: 'home#show'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
