@@ -19,7 +19,7 @@ module User::Master
 
   def total_rating(genre=nil)
     target_relations = if genre
-                         rated_pupil_relations.where("master_genre_tags == ?", genre)
+                         rated_pupil_relations.where("master_genre_tags LIKE ?", "%#{genre}%")
                        else
                          rated_pupil_relations
                        end

@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   include User::Pupil
 
   def self.search_master(master_genre_query)
-    User.all
+    users = User.where("master_genre_tags LIKE ?", "%#{master_genre_query}%")
+    users.sort{ |u| u.total_rating(master_genre_query) }.reverse
   end
 end
