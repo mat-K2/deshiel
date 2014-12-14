@@ -9,13 +9,15 @@
     %thead
       %tr
         %th 名前
-        %th 評価値
         %th 紹介文
+        %th 得意分野
+        %th 評価値
     %tbody
       - @users.each do |user|
         %tr
           %td= link_to user.name, user_path(user)
-          %td= user.total_rating(params['master_genre_query'])
           %td= user.description
+          %td= user.master_genre_tags
+          %td= user.total_rating(params['master_genre_query'])
 - else
   %h4 該当ユーザはいません
