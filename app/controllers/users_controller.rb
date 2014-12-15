@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %w(show edit update)
+  before_action :parse_query, only: %w(search)
 
   skip_before_action :authenticate_user!, only: %w(show search)
 
@@ -21,7 +22,7 @@ class UsersController < ApplicationController
   end
 
   def search
-    @users = User.search_master(params['master_genre_query'])
+    @users = User.search_master(@query)
   end
 
   private
@@ -31,6 +32,10 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :description, :master_genre_tags)
+    params.require(:user).permit(:name, :description, :master_genre_list)
+  end
+
+  def parse_query
+    @query = params['master_genre_query'].split(/\s|,/).delete_if(&:empty?)
   end
 end

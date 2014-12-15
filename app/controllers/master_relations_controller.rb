@@ -2,7 +2,7 @@ class MasterRelationsController < ApplicationController
   before_action :load_master, only: %w(create)
 
   def create
-    relation = current_user.master_relations.build(master_id: @master.id, master_genre_tags: @master.master_genre_tags)
+    relation = current_user.master_relations.build(master_id: @master.id, master_genre_tags: @master.master_genre_list.to_s)
     if relation.save
       redirect_to @master, notice: '弟子入り申請しました'
     else

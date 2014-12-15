@@ -44,6 +44,7 @@ gem 'rspec-rails'
 gem 'haml-rails'
 gem 'devise'
 gem 'thin'
+gem 'acts-as-taggable-on', '~> 3.4'
 
 group :production do
   gem 'pg'

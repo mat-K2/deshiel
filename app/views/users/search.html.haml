@@ -21,7 +21,7 @@
         %tr
           %td= link_to user.name, user_path(user)
           %td= user.description
-          %td= user.master_genre_tags
+          %td= user.master_genre_list
           - if Rails.env.development?
             %td= user.total_rating(params['master_genre_query'])
 - else

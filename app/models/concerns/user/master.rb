@@ -34,10 +34,6 @@ module User::Master
     current_pupil.present?
   end
 
-  def master_genre_with_rate
-    master_genre_tags.present? ? "#{master_genre_tags}(#{total_rating(master_genre_tags)})" : 'なし'
-  end
-
   def pupil_relations_to_accept
     pupil_relations.where(due_at: nil)
   end
