@@ -14,11 +14,15 @@
           紹介文
         %th.col-md-5
           得意分野
+        - if Rails.env.development?
+          %th Point
     %tbody
       - @users.each do |user|
         %tr
           %td= link_to user.name, user_path(user)
           %td= user.description
           %td= user.master_genre_tags
+          - if Rails.env.development?
+            %td= user.total_rating(params['master_genre_query'])
 - else
   %h4 該当ユーザはいません
