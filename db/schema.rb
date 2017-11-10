@@ -13,63 +13,63 @@
 
 ActiveRecord::Schema.define(version: 20141215025948) do
 
-  create_table "entries", force: true do |t|
-    t.string   "description", null: false
+  create_table "entries", force: :cascade do |t|
+    t.string   "description", limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id",     null: false
-    t.integer  "master_id",   null: false
-    t.integer  "pupil_id",    null: false
+    t.integer  "user_id",     limit: 4,   null: false
+    t.integer  "master_id",   limit: 4,   null: false
+    t.integer  "pupil_id",    limit: 4,   null: false
   end
 
-  create_table "master_relations", force: true do |t|
-    t.integer  "user_id",           null: false
-    t.integer  "master_id",         null: false
+  create_table "master_relations", force: :cascade do |t|
+    t.integer  "user_id",           limit: 4,   null: false
+    t.integer  "master_id",         limit: 4,   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "due_at"
-    t.integer  "rating"
-    t.string   "master_genre_tags", null: false
+    t.integer  "rating",            limit: 4
+    t.string   "master_genre_tags", limit: 255, null: false
   end
 
-  create_table "taggings", force: true do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "tag_id",        limit: 4
+    t.integer  "taggable_id",   limit: 4
+    t.string   "taggable_type", limit: 255
+    t.integer  "tagger_id",     limit: 4
+    t.string   "tagger_type",   limit: 255
     t.string   "context",       limit: 128
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
 
-  create_table "tags", force: true do |t|
-    t.string  "name"
-    t.integer "taggings_count", default: 0
+  create_table "tags", force: :cascade do |t|
+    t.string  "name",           limit: 255
+    t.integer "taggings_count", limit: 4,   default: 0
   end
 
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
-  create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name",                                null: false
-    t.string   "description"
+    t.string   "name",                   limit: 255,              null: false
+    t.string   "description",            limit: 255
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

@@ -1,9 +1,8 @@
 source 'https://rubygems.org'
 
+ruby '2.4.2'
 
-ruby '2.0.0'
-
-gem 'rails', '4.1.8'
+gem 'rails', '4.2.8'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
@@ -37,9 +36,14 @@ gem 'spring',        group: :development
 
 # Use debugger
 group :development, :test do
-  gem 'debugger'
   gem 'sqlite3'
 end
+
+group :development do
+  gem 'pry-rails'
+end
+
+gem 'mysql2'
 
 gem 'rspec-rails'
 gem 'haml-rails'
