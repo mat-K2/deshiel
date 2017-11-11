@@ -18,3 +18,5 @@
 /vendor/bundle
 
 /config/database.yml
+/config/ec2.yml
+/config/unicorn.rb

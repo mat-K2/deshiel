@@ -41,6 +41,8 @@ end
 
 group :development do
   gem 'pry-rails'
+  gem 'capify-ec2'
+  gem 'capistrano-unicorn', require: false
 end
 
 gem 'mysql2'
@@ -52,6 +54,6 @@ gem 'thin'
 gem 'acts-as-taggable-on', '~> 3.4'
 
 group :production do
-  gem 'pg'
   gem 'rails_12factor'
+  gem 'unicorn'
 end
