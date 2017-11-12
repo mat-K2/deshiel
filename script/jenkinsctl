@@ -1,0 +1,29 @@
+#! /bin/bash
+
+setup()
+{
+    cat <<-__CONFIG__ > "$WORKSPACE/config/ec2.yml"
+:aws_access_key_id: $AWS_ACCESS_KEY_ID
+:aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
+:aws_params:
+  :region: 'ap-northeast-1'
+:load_balanced: true
+__CONFIG__
+
+    bundle install --gemfile "$WORKSPACE/script/jenkins.gemfile" --path "$WORKSPACE/script/.bundle" --quiet
+}
+
+if [ -z "${WORKSPACE}" ]; then
+    echo 'Error: WORKSPACE not found.'
+    exit 1;
+fi
+
+case "$1" in
+    "setup" )
+        setup
+    ;;
+    * )
+        echo "Syntax Error: release [setup]"
+        exit 1;
+    ;;
+esac
